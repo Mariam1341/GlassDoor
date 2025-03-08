@@ -4,6 +4,7 @@ import com.glassdoor.authentication.entity.UserEntity;
 import com.glassdoor.authentication.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,23 +15,24 @@ import java.util.List;
 //@CrossOrigin(value = {"http://localhost:4200", "https://google.com"})
 public class UserController {
 
-    @Autowired
     private final UserService userService;
-//
+
     @GetMapping("")
-    public List<UserEntity> findAll() {
+    public ResponseEntity<?> findAll() {
 
-        return userService.findAll() ;
+        return ResponseEntity.ok(userService.findAll());
     }
-//
+
     @GetMapping("/{id}")
-    public UserEntity findById(@PathVariable Long id ) {
+    public ResponseEntity<?> findById(@PathVariable Long id ) {
 
-        return userService.findById(id);
+        return ResponseEntity.ok(userService.findById(id));
     }
-//    @PostMapping("/add")
-//    public UserEntity addUser(){
-//
-//    }
 
+    @PostMapping("/addUser")
+    public ResponseEntity<?>  addUser(@RequestBody UserEntity user){
+        return ResponseEntity.ok(userService.addUser(user));
+    }
 }
+
+
