@@ -36,8 +36,8 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        //it make it email
-        return userName;
+        //spring boot as a default ct a it's username but we wanna it with email
+        return email;
     }
 
     //note that it not override getPassword from UserDetail jut because we ue lombok it already make this function
