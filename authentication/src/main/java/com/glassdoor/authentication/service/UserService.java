@@ -17,7 +17,7 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    // it's my implementation to make sure that it will be utibul for this project
+    // it's my implementation to make sure that it will be suitable for this project
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
