@@ -5,10 +5,12 @@ import com.glassdoor.authentication.dto.AuthenticationResponse;
 import com.glassdoor.authentication.dto.RegisterRequest;
 import com.glassdoor.authentication.entity.Role;
 import com.glassdoor.authentication.entity.User;
+import com.glassdoor.authentication.exception.CustomAuthenticationExceptions;
 import com.glassdoor.authentication.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request){
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new CustomAuthenticationExceptions.UserAlreadyExistsException(request.getEmail());
+        }
         var user = User.builder()
                 .userName(request.getUserName())
                 .email(request.getEmail())
@@ -38,14 +43,18 @@ public class AuthenticationService {
 
 
     public AuthenticationResponse authenticate(AuthenticationRequest request){
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    )
+            );
+        } catch (BadCredentialsException e) {
+            throw new CustomAuthenticationExceptions.UserNotFoundException(request.getEmail());
+        }
         var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow();
+                .orElseThrow(() -> new CustomAuthenticationExceptions.UserNotFoundException(request.getEmail()));
         var jwtToken  = jwtService.generateToken(user);
         return AuthenticationResponse
                 .builder()

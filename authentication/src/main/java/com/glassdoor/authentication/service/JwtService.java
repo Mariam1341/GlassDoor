@@ -1,16 +1,16 @@
 package com.glassdoor.authentication.service;
 
+import com.glassdoor.authentication.exception.CustomAuthenticationExceptions;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import jakarta.websocket.Decoder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,8 +23,11 @@ public class JwtService {
 
 
     public String extractUserName(String token){
-
-        return extractClaim(token, Claims::getSubject);
+        try {
+            return extractClaim(token, Claims::getSubject);
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new CustomAuthenticationExceptions.InvalidTokenException();
+        }
 
     }
 
@@ -46,12 +49,20 @@ public class JwtService {
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails){
-        final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        try {
+            final String userName = extractUserName(token);
+            return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new CustomAuthenticationExceptions.InvalidTokenException();
+        }
     }
 
     private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        try {
+            return extractExpiration(token).before(new Date());
+        } catch (JwtException e) {
+            throw new CustomAuthenticationExceptions.TokenExpiredException();
+        }
     }
 
     private Date extractExpiration(String token){
@@ -66,12 +77,15 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token){
-        return Jwts.parserBuilder()
-                .setSigningKey(getSignKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(getSignKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (JwtException | IllegalArgumentException e) {
+            throw new CustomAuthenticationExceptions.InvalidTokenException();
+        }
 
     }
 
