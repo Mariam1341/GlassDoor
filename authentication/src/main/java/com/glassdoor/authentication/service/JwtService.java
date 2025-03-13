@@ -40,14 +40,14 @@ public class JwtService {
                 .setClaims(extractClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() +1000 *60*24))//will be expired after 24 hours and 1000 milliseconds
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) //will be expired after 24 hours and 1000 milliseconds
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails){
         final String userName = extractUserName(token);
-        return (userName.equals(userDetails.getUsername())) && isTokenExpired(token);
+        return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {
