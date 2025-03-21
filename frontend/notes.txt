@@ -1,0 +1,4 @@
+exeption handling in frontend 
+
+sing up for user and comapny 
+
