@@ -1,2 +1,4 @@
-package com.microservices.GlassDoor.controller;public class CompanyController {
+package com.microservices.GlassDoor.controller;
+
+public class CompanyController {
 }

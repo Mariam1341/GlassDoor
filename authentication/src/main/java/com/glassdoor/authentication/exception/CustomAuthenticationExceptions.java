@@ -32,4 +32,6 @@ public class CustomAuthenticationExceptions {
             super("User with email '" + email + "' not found");
         }
     }
+
+
 }

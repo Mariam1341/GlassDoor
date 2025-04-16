@@ -1,2 +1,4 @@
-package com.microservices.GlassDoor.service;public class UserService {
+package com.microservices.GlassDoor.service;
+
+public class UserService {
 }

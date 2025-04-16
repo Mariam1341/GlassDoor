@@ -1,70 +1,111 @@
-# Getting Started with Create React App
+# Glassdoor Clone
+This is the clone of website Glassdoor, which is related to jobs where company can register itself and can post their jobs requirements and users can apply for jobs and review the company and can compare the company on the basis of reviews, salaries, ratings etc. Users can also check informations about the company.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Demo of the project: https://glassdoor-clone.netlify.app/
 
-## Available Scripts
+## How to run the app
+<ul>
+  <li>Clone the repo and run following command to start the application.</li>
+  <ul>
+    <li>git clone https://github.com/chandan1499/Project-glassdoor.git</li>
+    <li>cd Project-glassdoor</li>
+    <li>npm i</li>
+    <li>npm start</li>
+    <li>json-server --watch data.json --port 3001(on new terminal)</li>
+  </ul>
+</ul>
 
-In the project directory, you can run:
+## Built with
+<ul>
+  <li>React js</li>
+  <li>HTML</li>
+  <li>CSS</li>
+</ul>
 
-### `npm start`
+## Features
+<ul>
+  <li>Signin/Signup</li>
+  <li>Compare Companies</li>
+  <li>Search jobs</li>
+  <li>Posting a job</li>
+  <li>Register company</li>
+</ul>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Demo video of the project
+  <a href="https://drive.google.com/file/d/1A2Xbea-YsW7dvIU-sWWJVYS1mMu70D3s/view?usp=sharing">Click here to watch demo video</a>
+  
+## ScreenShots
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<ul>
 
-### `npm test`
+  <li>
+    <h4>Sign-In Page</h4>
+  </br> 
+  <img src="https://user-images.githubusercontent.com/82999618/129242358-738b77e5-ea5e-4c8e-871e-431caf2d27c5.png" />
+</li>
+ 
+  <li>
+  <h4>Dashboard Page</h4>
+  </br>  
+  <img src="https://user-images.githubusercontent.com/82999618/129242573-aa05cf94-9078-4315-b170-5b78b1b05692.png" />
+</li>
+  
+<li>
+<h4>Compare-Companies Page</h4>
+  </br> 
+  <img src="https://user-images.githubusercontent.com/82999618/129242879-96d7f34c-bf0e-4b3d-9dab-c7b5d55e89d1.png" />
+</li>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<li>
+  <h4>Interview Section</h4>
+  </br>  
+  <img src="https://user-images.githubusercontent.com/82999618/129243031-441f25a6-09de-45cc-ad30-abcb63d2d0aa.png" />
+</li>
 
-### `npm run build`
+<li>
+  <h4>Post-job Section</h4>
+  </br>  
+  <img src="https://user-images.githubusercontent.com/82999618/129243950-7bd87dd7-a9ec-45e0-a337-8bce275cbda4.png" />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+</li>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+</ul>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Used libraries
+<ul>
+  <li>node modules</li>
+  <ul>
+    <li>Styled-Components</li>
+    <li>axios</li>
+    <li>React Hooks</li>
+    <li>React-router-dom</li>
+    <li>Material UI Icon</li>
+    <li>React Icon</li>
+    <li>Font-awesome Icon</li>
+  </ul>
+</ul>
 
-### `npm run eject`
+## Team members
+<ul>
+  <li>Chandan Gupta</li>
+    <ul>
+      <li>Gmail <a href="mailto:gupta.chandan1499@gmail.com">gupta.chandan1499@gmail.com</a></li>
+      <li>Github <a href="https://github.com/chandan1499">https://github.com/chandan1499</a></li>
+    </ul>
+  <li>Kumar Saurav</li>
+    <ul>
+      <li>Gmail <a href="mailto:krsaurav1007@gmail.com">krsaurav1007@gmail.com</a></li>
+      <li>Github <a href="https://github.com/ks-1007">https://github.com/ks-1007</a></li>
+    </ul>
+  <li>Gaurav Parmar</li>
+    <ul>
+      <li>Gmail <a href="mailto:parmargaurav1234@gmail.com">parmargaurav1234@gmail.com</a></li>
+      <li>Github <a href="https://github.com/Gaurav6291">https://github.com/Gaurav6291</a></li>
+    </ul>
+  <li>Nitish Kumar</li>
+    <ul>
+      <li>Gmail <a href="mailto:nitish14920@gmail.com">nitish14920@gmail.com</a></li>
+      <li>Github <a href="https://github.com/nitish14920">https://github.com/nitish14920</a></li>
+    </ul>
+</ul>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

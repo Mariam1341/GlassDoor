@@ -28,12 +28,12 @@ public class AuthenticationService {
             throw new CustomAuthenticationExceptions.UserAlreadyExistsException(request.getEmail());
         }
         var user = User.builder()
-                .userName(request.getUserName())
+                .name(request.getUserName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.JOB_SEEKER)
+                .role("JOB_SEEKER")
                 .build();
-        userRepository.save(user);
+        userRepository.insert(user);
         var jwtToken  = jwtService.generateToken(user);
         return AuthenticationResponse
                 .builder()
