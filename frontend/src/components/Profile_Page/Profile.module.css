@@ -1,6 +1,49 @@
 body{
     background-color: #fff;
 }
+.update_form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    background-color: #f7fdf9;
+    padding: 20px;
+    border: 1px solid #d0eadd;
+    border-radius: 8px;
+  }
+  
+  .input_group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input_group label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #0caa41;
+  }
+  
+  .input_group input {
+    padding: 10px;
+    border: 1px solid #c9e6d6;
+    border-radius: 4px;
+  }
+  
+  .update_button {
+    background-color: #0caa41;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+  .update_button:hover {
+    background-color: #0a8e36;
+  }
+  
 .Profile_div1{
     position: relative;
     margin: 0 auto;
