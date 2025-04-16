@@ -32,9 +32,7 @@ public class UserController {
     public ResponseEntity<ApiResponse<?>> updateUser(
             @RequestHeader("Authorization") String authHeader,
             @Valid @RequestBody UserDTO request) {
-
         String token = authHeader.replace("Bearer ", "");
-        System.out.println(request);
         return ResponseEntity.ok(userService.updateUser(token, request));
     }
 }

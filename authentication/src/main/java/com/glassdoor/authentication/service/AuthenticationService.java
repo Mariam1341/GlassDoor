@@ -28,7 +28,7 @@ public class AuthenticationService {
             throw new CustomAuthenticationExceptions.UserAlreadyExistsException(request.getEmail());
         }
         var user = User.builder()
-                .name(request.getUserName())
+                .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role("JOB_SEEKER")
