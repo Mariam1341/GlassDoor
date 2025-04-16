@@ -1,7 +1,36 @@
-import React from "react";
+import React,{useState} from "react";
 import styles from "./Profile.module.css";
 import { Navbar } from "../navbar";
+
 const Profile = () => {
+  const [formData, setFormData] = useState({
+    userName: "",
+    email: "",
+  });
+  
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("token"); 
+      const res = await fetch("http://localhost:8080/api/users/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      alert(data.message);
+    } catch (err) {
+      alert("Something went wrong!");
+    }
+  };
+  
   return (
     <>
     <Navbar />
@@ -150,9 +179,39 @@ const Profile = () => {
                   </ul>
                   <div className={styles.center_line}></div>
                   <div className={styles.profile_body_right}>
-                    <div>
-                      <button>Finish My Profile</button>
-                    </div>
+                    
+                  <form onSubmit={handleSubmit} className={styles.update_form}>
+  <div className={styles.input_group}>
+    <label htmlFor="userName">User Name</label>
+    <input
+      type="text"
+      id="userName"
+      name="userName"
+      value={formData.userName}
+      onChange={handleChange}
+      placeholder="Enter your name"
+      required
+    />
+  </div>
+
+  <div className={styles.input_group}>
+    <label htmlFor="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      value={formData.email}
+      onChange={handleChange}
+      placeholder="Enter your email"
+      required
+    />
+  </div>
+
+  <button type="submit" className={styles.update_button}>
+    Update My Info
+  </button>
+</form>
+
                     <div>
                       <span>
                       <svg className={styles.svgs} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><g fill="none" fillRule="evenodd"><path d="M16.4 22.476a8.036 8.036 0 002.33 2.734 13.742 13.742 0 00-6.856 5.518 12.581 12.581 0 01-5.624-2.784 8.805 8.805 0 018.25-5.671c.652 0 1.287.07 1.9.203zm17.1-.203c3.778 0 7 2.358 8.25 5.671a12.58 12.58 0 01-6.526 2.94 13.739 13.739 0 00-6.953-5.674 8.04 8.04 0 002.136-2.384 8.855 8.855 0 013.093-.553zm-19-10.182c1.215 0 2.318.482 3.127 1.264a7.972 7.972 0 00-2.127 5.433c0 .733.099 1.443.283 2.117a4.5 4.5 0 11-1.283-8.814zm19 0a4.5 4.5 0 11-2.189 8.433c.124-.56.189-1.14.189-1.736a7.97 7.97 0 00-1.636-4.849 4.494 4.494 0 013.636-1.848z" fill="#DFF7E7"></path><path d="M23.5 26.364c5.037 0 9.334 3.144 11 7.561A16.793 16.793 0 0123.5 38a16.793 16.793 0 01-11-4.075c1.666-4.417 5.963-7.561 11-7.561zm0-13.576a6 6 0 110 12 6 6 0 010-12zm-.05 8.629a.803.803 0 00-.813.793c0 .44.366.792.813.792a.803.803 0 00.813-.792.803.803 0 00-.813-.793zm0-6c-1.014 0-1.906.637-2.156 1.373-.28.826.766 1.26 1.23.51.253-.408.568-.593.926-.593.651 0 .993.287.98.73.005.332-.12.511-.5.805l-.224.17c-.625.49-.916.96-.916 1.798 0 .358.298.645.66.645.363 0 .66-.287.66-.645.037-.532.202-.761.72-1.164l.015-.011c.66-.513.905-.88.905-1.69 0-1.16-1.039-1.928-2.3-1.928z" fill="#0CAA41"></path></g></svg>

@@ -112,8 +112,12 @@ export function SignInFormSection() {
         handleHideModal();
         setIsRegistered("block");
         setIsInvalid("none");
-        setLoginData({ email: "", password: "", username: "" });
+        setLoginData({ email: "", password: "", name: "" });
         console.log(data);
+        if (data.token) {
+          localStorage.setItem("authToken", data.token);
+          console.log("Token saved:", data.token);
+        }
       })
       .catch((err) => {
         console.log("err:", err);

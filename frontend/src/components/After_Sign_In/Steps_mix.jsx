@@ -1,8 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import Steps from './Steps';
 import styles from './After_sign_in_2.module.css';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 const StepsMix = () => {
+    const [userData, setUserData] = useState(null);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+        const token = localStorage.getItem("authToken");
+        
+        try {
+            const response = await axios.get("/api/v1/user/profile", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            });
+
+            setUserData(response.data.data); 
+            console.log("User Data:", response.data.data);
+            
+        } catch (err) {
+            setError("Failed to fetch profile. Please log in again.");
+            console.error(err);
+        }
+        };
+
+        fetchProfile();
+    }, []);
 
 return(
     <>
@@ -14,7 +40,7 @@ return(
            </Link></div>
             <div className={styles.profile_div2_2}>
                 <div>
-                gaurav parmar
+                {/* {userData.email} */}
                 </div>
                 <Link to="/Profile"><div className={styles.profile_div2_2_2}>
                     <span>Finish Your Profile</span>
