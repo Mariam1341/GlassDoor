@@ -44,7 +44,7 @@ public class UserService implements UserDetailsService {
     }
     private UserDTO convertToDTO(User user) {
         return UserDTO.builder()
-                .id(user.getId())
+//                .id(user.getId())
                 .email(user.getEmail())
                 .userName(user.getName())
                 .build();

@@ -4,6 +4,7 @@ import { Navbar } from "../navbar";
 
 const Profile = () => {
   const [formData, setFormData] = useState({
+    
     userName: "",
     email: "",
   });
@@ -16,7 +17,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token"); 
-      const res = await fetch("http://localhost:8080/api/users/update", {
+      const res = await fetch("http://localhost:8080/api/v1/user/update", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -25,6 +26,7 @@ const Profile = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
+      console.log(formData)
       alert(data.message);
     } catch (err) {
       alert("Something went wrong!");

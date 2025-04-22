@@ -12,9 +12,7 @@ export function Footer() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.footerHeading}>
-                <h4>Glassdoor has millions of jobs plus salary information, company reviews, and interview questions from people on the inside making it easy to find a job that’s right for you.</h4>
-            </div>
+           
             <div className={styles.links}>
                 <div className={styles.linksDiv}>
                     <div className={styles.logaWithTitle}>
@@ -42,10 +40,8 @@ export function Footer() {
                                 <li>Help/Contact US</li>
                                 <li>Guidelines</li>
                                 <li>Terms of Use</li>
-                                <li>Privacy & Cookies(New)</li>
-                                <li>Privacy Center</li>
-                                <li>Do Not Sell My Personal Information</li>
-                                <li>Cookie Consent Tool</li>
+                                
+                                
                             </ul>
                         </div>
                         <div className={styles.footerLinksBox}>
@@ -142,41 +138,15 @@ export function Footer() {
                             </g>
                         </svg>
                     </div>
-                    <div className={styles.footerInput} onClick={()=>{setCountryListPopupStyle("block")}}>
-                        <input className={styles.jobtype} value={country} readOnly={true} />
-                        <svg style={{
-                            color: "black",
-                            position: "relative",
-                            right: "35px"
-                        }} className="SVGInline-svg arrowDown-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4.4 9.25l7.386 7.523a1 1 0 001.428 0L20.6 9.25c.5-.509.5-1.324 0-1.833a1.261 1.261 0 00-1.8 0l-6.3 6.416-6.3-6.416a1.261 1.261 0 00-1.8 0c-.5.509-.5 1.324 0 1.833z" fillRule="evenodd" fill="currentColor"></path></svg>
-                    </div>
+                   
                 </div>
             </div>
+           
             <div className={styles.bottomCredits}>
-                <h4>Brows By : <span> Companies, </span><span> Jobs, </span><span> Locations</span></h4>
-            </div>
-            <div className={styles.bottomCredits}>
-                <h4>Copyright © 2008-2021, Glassdoor, Inc. "Glassdoor" and logo are registered trademarks of Glassdoor, Inc</h4>
+                <h4>Copyright © 2025</h4>
             </div>
 
 
-            <div className={styles.countryListPopup} style={{ display:countryListPopupStyle }}>
-                <ul style={{ borderBottom: "none" }}>
-                    <li onClick={()=>{setCountry("America"); setCountryListPopupStyle("none")}}>America</li>
-                    <li onClick={()=>{setCountry("India"); setCountryListPopupStyle("none")}}>India</li>
-                    <li onClick={()=>{setCountry("England"); setCountryListPopupStyle("none")}}>England</li>
-                    <li onClick={()=>{setCountry("Australia"); setCountryListPopupStyle("none")}}>Australia</li>
-                    <li onClick={()=>{setCountry("Japan"); setCountryListPopupStyle("none")}}>Japan</li>
-                    <li onClick={()=>{setCountry("China"); setCountryListPopupStyle("none")}}>China</li>
-                    <li onClick={()=>{setCountry("Brasil"); setCountryListPopupStyle("none")}}>Brasil</li>
-                    <li onClick={()=>{setCountry("Canada"); setCountryListPopupStyle("none")}}>Canada</li>
-                    <li onClick={()=>{setCountry("South Africa"); setCountryListPopupStyle("none")}}>South Africa</li>
-                    <li onClick={()=>{setCountry("France"); setCountryListPopupStyle("none")}}>France</li>
-                    <li onClick={()=>{setCountry("Pakistan"); setCountryListPopupStyle("none")}}>Pakistan</li>
-                    <li onClick={()=>{setCountry("Bangladesh"); setCountryListPopupStyle("none")}}>Bangladesh</li>
-                    <li onClick={()=>{setCountry("Sri Lanka"); setCountryListPopupStyle("none")}}>Sri Lanka</li>
-                </ul>
-            </div>
         </div>
     );
 }

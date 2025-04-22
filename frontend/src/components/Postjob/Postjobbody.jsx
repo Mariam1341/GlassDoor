@@ -72,7 +72,7 @@ export function Postjobbody() {
             data.imgUrl = "https://img.icons8.com/ios-glyphs/90/000000/organization.png";
         }
 
-        axios.post("https://glassdoor-clone-server.herokuapp.com/jobList", data).then((res) => {
+        axios.post("http://localhost:9090/api/v1/job/add-job", data).then((res) => {
             console.log(res);
         }).catch((err) => {
             console.log(err);

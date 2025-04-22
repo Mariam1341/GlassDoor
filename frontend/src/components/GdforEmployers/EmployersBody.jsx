@@ -72,7 +72,7 @@ export function EmployersBody() {
         }
 
 
-        axios.post("https://glassdoor-clone-server.herokuapp.com/companies", data).then((res) => {
+        axios.post("http://localhost:9090/api/v1/company/add-company", data).then((res) => {
             console.log(res);
         }).catch((err) => {
             console.log(err);
