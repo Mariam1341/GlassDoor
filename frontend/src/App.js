@@ -14,6 +14,7 @@ import { DiscoverCompanies } from "./components/CompanySection/DiscoverCompanies
 import { GdforEmp } from "./components/GdforEmployers/GdforEmp";
 import { Postjob } from "./components/Postjob/Postjob";
 import { CompanyDetails } from "./components/companyOverview/companyOverview";
+import { AddCompany } from "./components/company/AddCompany";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
         <Route exact path="/jobsList" component={JobsList} />
         <Route exact path="/forEmployers" component={GdforEmp} />
         <Route exact path="/postJob" component={Postjob} />
+
+        <Route exact path="/addCompany" component={AddCompany} />
       </Switch>
     </div>
   );

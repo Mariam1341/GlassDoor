@@ -19,14 +19,14 @@
 
 .footerHeading h4 {
     width: 70%;
-    margin: 20px auto;
+    margin: 10px auto;
     font-weight: 500;
     color: white;
 }
 
 .links {
-    margin-top: 50px;
-    padding-bottom: 30px;
+    margin-top: 30px;
+    padding-bottom: 10px;
     border-bottom: 1px solid rgb(201, 197, 197);
 }
 
@@ -74,7 +74,7 @@
 
 .footerLinksBox ul li {
     list-style: none;
-    font-size: 16px;
+    font-size: 15px;
     margin: 10px 0px;
     letter-spacing: 0.5px;
     cursor: pointer;
@@ -85,7 +85,7 @@
     display: flex;
     text-align: center;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 10px;
     color: white;
 }
 

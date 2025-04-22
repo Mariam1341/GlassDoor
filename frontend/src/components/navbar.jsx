@@ -183,8 +183,8 @@ export function Navbar() {
                         </div></Link>
                     </div>
                     <div className={styles.flex}>
-                        <Link to="/forEmployers"><div className={styles.link} onMouseOver={() => { setForEmployersStyle("block") }} onMouseOut={() => { setForEmployersStyle("none") }}>
-                            <h4>For Employers</h4>
+                        <Link to="/addCompany"><div className={styles.link} onMouseOver={() => { setForEmployersStyle("block") }} onMouseOut={() => { setForEmployersStyle("none") }}>
+                            <h4>For Companies</h4>
                         </div></Link>
                         <Link to="postJob"><div className={styles.link}>
                             <svg

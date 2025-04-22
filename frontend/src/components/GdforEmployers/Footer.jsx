@@ -14,8 +14,7 @@ export function Footer(){
                     <p>How it Works</p>
                     <p>The Glassdoor Difference</p>
                     <p>What is Employer Branding?</p>
-                    <h2>Community and Partners</h2>
-                    <p>OpenCompany</p>
+                    
                 </div>
                 <div className={styles.footer_inner}>
                     <h2>Solutions</h2>
@@ -38,8 +37,7 @@ export function Footer(){
                     <p>Employee Onboarding</p>
                     <p>Employee Retention and Benefits</p>
                     <p>How to Use Glassdoor</p>
-                    <p>HR Management and Planning</p>
-                    <p>Employer Blog</p>
+                    
                 </div>
                 <div className={styles.footer_inner}>
                     <h2>Contact Us</h2>
@@ -55,8 +53,7 @@ export function Footer(){
                     </div>           
                 </div>
             </div>
-            <Link to="/Dashboard"><img src="https://www.glassdoor.co.in/employers/app/themes/theme-gd-employers/dist/images/icons/glassdoor-doors-icon.svg?x57299" alt="Glassdoor"></img><span> Looking for Glassdoor.com?</span></Link>
-
+          
         </div>
         
 
