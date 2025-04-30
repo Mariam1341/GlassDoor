@@ -15,274 +15,69 @@ import { FiPenTool } from 'react-icons/fi';
 import { GrTools } from 'react-icons/gr';
 import { Navbar } from "../navbar";
 import { Footer } from '../footer';
-import { Link, useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
 
 
 
-const Cont1 = styled.div`
-    display: flex;
-    background-color: white;
-    justify-content: center;
-    /* align-items: center; */
+import React, { useState, useEffect } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 
-    &>div:nth-of-type(1){
-        margin: 1%;
-        display: flex;
-        flex-direction: column;
-        /* align-items: flex-start; */
-        width: 400px;
-        &>div:nth-of-type(1){
-            border: 1px solid #d1d1d1;
-            border-radius: 5px;
-            color: gray;
-            text-align: left;
-            padding: 5%;
-            h3{
-                color: rgb(24,97,191);
-            };
 
-            &>div:nth-of-type(1){
-                display: flex;
-                align-items: center;
-            };
-            &>div:nth-of-type(2){
-        
-                border-top: 1px solid #d1d1d1;
-            }
-        }
-
-        &>div:nth-of-type(2){
-            height: 200px;
-            margin-top: 20px;
-            /* width: 100%; */
-            &>div:nth-of-type(1){
-                display: flex;
-                justify-content: space-between;
-            };
-            &>div:nth-of-type(2){
-                display: flex;
-                button{
-                    border:none;
-                    height: 35px;
-                    width: 80px;
-                    border-radius: 17.5px;
-                    margin: 0 5px;
-                    font-size: 17px;
-                    color: gray;
-                }
-            };
-            h3{
-                color: gray;
-            };
-            border: 1px solid #d1d1d1;
-            border-radius: 5px;
-            color: gray;
-            text-align: left;
-            padding: 5%;
-        }
-    
-    };
-    &>div:nth-of-type(2){
-        text-align: center;
-    }
-    &>div:nth-of-type(2)>div{
-
-        width: 900px;
-        margin: 1%;
-        display: grid;
-        grid-template-columns: 45% 45%;
-        justify-content: space-around;
-    }
-`;
-const CompanyCard = styled.div`
-    width: 400px;
-    border: 1px solid #d1d1d1;
-    border-radius: 5px;
-    color: gray;
-    text-align: left;
-    padding: 2%;
-    height: 230px;
-    margin:10px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    h3, p{
-        margin: 5px;
-    }
-    img{
-        width: 50px;
-        border: 1px solid #d1d1d1;
-        border-radius: 5px;
-    }
-    button{
-        background-color: white;
-        height: 30px;
-        width: 100px;
-        font-weight: 600;
-        font-size: 17px;
-        border: 1px solid #b6b6b6;
-        border-radius: 3px;
-    }
-    &>div{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    };
-    &>div:nth-of-type(2){
-        border-top: 1px solid #d1d1d1;
-        justify-content: flex-start;
-        display: flex;
-        /* padding-top: 1%; */
-        height: 20%;
-        * {
-            margin: 1%;
-        }
-    }
-`;
-
-const Cont2 = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    &>div{
-        display: flex;
-    }
-`
-const Card1 = styled.div`
-    margin: 10px;
-    border: 1px solid #d1d1d1;
-    border-radius: 5px;
-    background-color: white;
-    width: 370px;
-    height: 250px;
-    padding: 1% 1.5%;
-    img{
-        width: 50px;
-        border: 1px solid #d1d1d1;
-        border-radius: 3px;
-        margin: 0 10px;
-    }
-    
-    &>div:nth-child(1){
-        border-bottom: 1px solid #d1d1d1;
-        display: flex;
-        height: 80px;
-        align-items: center;
-        /* justify-content: space-around; */
-        h3, p{
-            margin: 0;
-        }
-
-    }
-    &>div:nth-child(2){
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-    }
-`
-const Cont3 = styled.div`
-    background-color: white;
-    padding: 1%;
-    &>h2, &>p{
-        margin-left: 15%;
-    }
-    &>div{
-        display: flex;
-        width: 80%;
-        margin: auto;
-    }
-`
-
-const Card2 = styled.div`
-    display: flex;
-    margin: 10px;
-    
-    img{
-        border: 1px solid #e6e6e6;
-        border-radius: 3px;
-        width: 50px;
-    }
-    &>div{
-        border: 1px solid #f5f5f5;
-        width: 200px;
-        height: 120px;
-        padding: 1%;
-        text-align: center;
-        *{
-            margin: 0;
-        }
-    }
-`
-const Card3 = styled.div`
-    border: 1px solid #c7c7c7;
-    font-weight: 500;
-    width: 400px;
-    height: 80px;
-    margin: 5px;
-    padding: 1%;
-    &>div{
-        border: 1px solid black;
-        border-radius: 50%;
-        width: 22px;
-        height: 22px;
-        padding: 1%;
-    }
-`;
-
-const CompanyNav = styled.nav`
-    display: flex;
-    border: 1px solid #c5c5c5;
-    height: 60px;
-    background-color: rgb(245,246,247);
-    align-items: center;
-    padding: 0 4%;
-    font: 16px;
-    color: grey;
-    font-weight: 400;
-    &>div{
-        margin: 0 1%;
-        cursor: pointer;
-    }
-
-    a {
-        margin: 0px 10px;
-    }
-`;
-
+import './DiscoverCompanies.css';
+import axios from 'axios';
 
 export function DiscoverCompanies() {
     const history = useHistory();
-    const showDetail = (name, image) => {
+    const [companies, setCompanies] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        fetchCompanies();
+    }, []);
+
+    const fetchCompanies = async () => {
+        try {
+            const response = await axios.get('http://localhost:9090/api/v1/company');
+            setCompanies(response.data);
+            setLoading(false);
+        } catch (err) {
+            setError(err.message);
+            setLoading(false);
+        }
+    };
+
+    const showDetail = (company) => {
         history.push({
             pathname: "/companyDetails",
             state: {
-                name,
-                image
+                name: company.name,
+                image: company.logo
             }
-        })
-    }
+        });
+    };
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
-
+    // Featured companies for comparison section
+    const featuredCompanies = companies.slice(0, 4);
+    
     return (
         <>
             <Navbar />
-            <CompanyNav>
+            <nav className="company-nav">
                 <Link to="/companies"><div>Discover Companies</div></Link>
                 <Link to="/CompareCompany"> <div>Compare Companies</div></Link>
                 <div>Suggested Follows</div>
                 <Link to="/reviewForm"><div>Write a Review</div></Link>
-            </CompanyNav>
-            <Cont1>
+            </nav>
+            
+            <div className="cont1">
                 <div>
                     <h2>Your Company Preferences</h2>
                     <div>
                         <BiBuildings fontSize="25px" />
-
                         <p>Preferred Industries</p>
                         <h3>Add Preffered Industries</h3>
                         <p>Preferred Company Size</p>
@@ -299,12 +94,10 @@ export function DiscoverCompanies() {
                         <div>
                             <div>
                                 <CgBriefcase color="rgb(102,192,128)" fontSize="25px" />
-
                             </div>
                             <div>
                                 <IoIosArrowBack color="rgb(184,187,191)" fontSize="25px" />
                                 <IoIosArrowForward color="rgb(80,88,99)" fontSize="25px" />
-
                             </div>
                         </div>
                         <p>Get personalised recommendations</p>
@@ -315,231 +108,300 @@ export function DiscoverCompanies() {
                         </div>
                         <p>Viewable by Employers
                             <IoInformationCircleOutline />
-
                         </p>
                     </div>
-
-
                 </div>
+                
                 <div>
                     <h2>Companies Recommended for You</h2>
                     <p>Recommendations are based on your profile, job preferences, and activity on Glassdoor.</p>
-                    <div>
-                        <CompanyCard onClick={() => { showDetail("Microsoft", "https://media.glassdoor.com/sqls/1651/microsoft-squarelogo-1479856042252.png") }}>
-                            <img src="https://media.glassdoor.com/sqls/1651/microsoft-squarelogo-1479856042252.png" alt="" />
-                            <div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '45% 45%', justifyContent: 'space-around' }}>
+                        {companies.map(company => (
+                            <div 
+                                key={company.id} 
+                                className="company-card"
+                                onClick={() => showDetail(company)}
+                            >
+                                <img src={company.logo} alt={company.name} />
                                 <div>
-                                    <h3>Microsoft</h3>
-                                    <p style={{ color: "rgb(12,170,65)" }}>4.4
-                                        <FaStar color="rgb(12,170,65)" fontSize="12px" />
-                                    </p>
+                                    <div>
+                                        <h3>{company.name}</h3>
+                                        <p style={{ color: "rgb(12,170,65)" }}>
+                                            {company.rating.toFixed(1)}
+                                            <FaStar color="rgb(12,170,65)" fontSize="12px" />
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <button>Follow</button>
+                                    </div>
                                 </div>
+                                <p>100 Jobs · 2300 Reviews · 2200 Salaries</p>
                                 <div>
-                                    <button>Follow</button>
-                                </div>
-                            </div>
-                            <p>100 Jobs . 2300 Reviews . 2200 Salaries</p>
-                            <div>
-                                <FaRegSmileBeam fontSize="20px" /> <p> Highly Rated for culture and values</p>
-                            </div>
-                        </CompanyCard>
-
-                        <CompanyCard onClick={() => { showDetail("Google", "https://media.glassdoor.com/sql/9079/google-squarelogo-1441130773284.png") }}>
-                            <img src="https://media.glassdoor.com/sql/9079/google-squarelogo-1441130773284.png" alt="" />
-                            <div>
-                                <div>
-                                    <h3>Google</h3>
-                                    <p style={{ color: "rgb(12,170,65)" }}>4.7
-                                        <FaStar color="rgb(12,170,65)" fontSize="12px" />
-                                    </p>
-                                </div>
-                                <div>
-                                    <button>Follow</button>
+                                    <FaRegSmileBeam fontSize="20px" /> 
+                                    <p>Highly Rated for culture and values</p>
                                 </div>
                             </div>
-                            <p>100 Jobs . 2300 Reviews . 2200 Salaries</p>
-                            <div>
-                                <FaRegSmileBeam fontSize="20px" /> <p> Highly Rated for culture and values</p>
-                            </div>
-                        </CompanyCard>
-                        <CompanyCard onClick={() => { showDetail("Netflix", "https://media.glassdoor.com/sql/11891/netflix-squarelogo-1508988775050.png") }}>
-                            <img src="https://media.glassdoor.com/sql/11891/netflix-squarelogo-1508988775050.png" alt="" />
-                            <div>
-                                <div>
-                                    <h3>Netflix</h3>
-                                    <p style={{ color: "rgb(12,170,65)" }}>4.6
-                                        <FaStar color="rgb(12,170,65)" fontSize="12px" />
-                                    </p>
-                                </div>
-                                <div>
-                                    <button>Follow</button>
-                                </div>
-                            </div>
-                            <p>100 Jobs . 2300 Reviews . 2200 Salaries</p>
-                            <div>
-                                <FaRegSmileBeam fontSize="20px" /> <p> Highly Rated for culture and values</p>
-                            </div>
-                        </CompanyCard>
-                        <CompanyCard>
+                        ))}
+                        
+                        <div className="company-card">
                             <h3>Not finding the right company?</h3>
                             <p>Use Glassdoor's Company Explorer to filter Companies by sector, ratings and more.</p>
-                            <button style={{ border: "2px solid rgb(24,97,191)", color: "rgb(24,97,191)", width: "170px", height: "35px" }}>Search Companies</button>
-                        </CompanyCard>
+                            <button style={{ 
+                                border: "2px solid rgb(24,97,191)", 
+                                color: "rgb(24,97,191)", 
+                                width: "170px", 
+                                height: "35px" 
+                            }}>
+                                Search Companies
+                            </button>
+                        </div>
                     </div>
-
                 </div>
-            </Cont1>
+            </div>
 
-            <Cont2>
-
+            {/* Latest Reviews Section */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <h2>Latest Reviews for Recommended Companies</h2>
-                <div>
-                    <Card1 onClick={() => { showDetail("Google", "https://media.glassdoor.com/sql/9079/google-squarelogo-1441130773284.png") }}>
-                        <div>
-                            <div>
-                                <img src="https://media.glassdoor.com/sql/9079/google-squarelogo-1441130773284.png" alt="" />
+                <div style={{ display: 'flex' }}>
+                    {featuredCompanies.slice(0, 3).map(company => (
+                        <div 
+                            key={`review-${company.id}`}
+                            style={{
+                                margin: '10px',
+                                border: '1px solid #d1d1d1',
+                                borderRadius: '5px',
+                                backgroundColor: 'white',
+                                width: '370px',
+                                height: '250px',
+                                padding: '1% 1.5%',
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => showDetail(company)}
+                        >
+                            <div style={{ 
+                                borderBottom: '1px solid #d1d1d1', 
+                                display: 'flex', 
+                                height: '80px', 
+                                alignItems: 'center' 
+                            }}>
+                                <div>
+                                    <img 
+                                        src={company.logo} 
+                                        alt={company.name} 
+                                        style={{
+                                            width: '50px',
+                                            border: '1px solid #d1d1d1',
+                                            borderRadius: '3px',
+                                            margin: '0 10px'
+                                        }} 
+                                    />
+                                </div>
+                                <div>
+                                    <h3 style={{ margin: 0 }}>{company.name}</h3>
+                                    <p style={{ 
+                                        color: "rgb(12,170,65)", 
+                                        margin: 0 
+                                    }}>
+                                        {company.rating.toFixed(1)}
+                                        <FaStar color="rgb(12,170,65)" fontSize="12px" />
+                                    </p>
+                                </div>
                             </div>
-                            <div>
-                                <h3>Google</h3>
-                                <p style={{ color: "rgb(12,170,65)" }}>4.7
-                                    <FaStar color="rgb(12,170,65)" fontSize="12px" />
-                                </p>
+                            <div style={{ 
+                                display: 'flex', 
+                                flexDirection: 'column', 
+                                justifyContent: 'space-around' 
+                            }}>
+                                <p>Current Employee Software Engineer</p>
+                                <div>
+                                    {[...Array(5)].map((_, i) => (
+                                        <FaStar 
+                                            key={i} 
+                                            color="rgb(12,170,65)" 
+                                            fontSize="15px" 
+                                        />
+                                    ))}
+                                </div>
+                                <p>"Best company and best work culture ever"</p>
+                                <p>July 3,2021</p>
                             </div>
                         </div>
-                        <div>
-                            <p>Current Employee Software Engineer</p>
-                            <div>
-                                <FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" />
-                            </div>
-                            <p>"Best company and best work culture ever"</p>
-                            <p>July 3,2021</p>
-                        </div>
-                    </Card1>
-                    <Card1 onClick={() => { showDetail("Amazon", "https://media.glassdoor.com/sql/6036/amazon-squarelogo-1552847650117.png") }}>
-                        <div>
-                            <div>
-                                <img src="https://media.glassdoor.com/sql/6036/amazon-squarelogo-1552847650117.png" alt="" />
-                            </div>
-                            <div>
-                                <h3>Amazon</h3>
-                                <p style={{ color: "rgb(12,170,65)" }}>4.3
-                                    <FaStar color="rgb(12,170,65)" fontSize="12px" />
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <p>Current Employee Software Engineer</p>
-                            <div>
-                                <FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" />
-                            </div>
-                            <p>"Best company and best work culture ever"</p>
-                            <p>July 3,2021</p>
-                        </div>
-                    </Card1>
-                    <Card1 onClick={() => { showDetail("Ericsson-Worldwide", "https://media.glassdoor.com/sql/3472/ericsson-worldwide-squarelogo-1522695466023.png") }}>
-                        <div>
-                            <div>
-                                <img src="https://media.glassdoor.com/sql/3472/ericsson-worldwide-squarelogo-1522695466023.png" alt="" />
-                            </div>
-                            <div>
-                                <h3>Ericsson-Worldwide</h3>
-                                <p style={{ color: "rgb(12,170,65)" }}>4.1
-                                    <FaStar color="rgb(12,170,65)" fontSize="12px" />
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <p>Current Employee Software Engineer</p>
-                            <div>
-                                <FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" /><FaStar color="rgb(12,170,65)" fontSize="15px" />
-                            </div>
-                            <p>"Best company and best work culture ever"</p>
-                            <p>July 3,2021</p>
-                        </div>
-                    </Card1>
+                    ))}
                 </div>
-            </Cont2>
+            </div>
 
-            <Cont3>
-                <h2>Compare Companies</h2>
-                <p>See how companies stack up against their competitors using data only found on Glassdoor.</p>
-                <div>
-                    <Card2>
-                        <div onClick={() => { showDetail("Netflix", "https://media.glassdoor.com/sql/11891/netflix-squarelogo-1508988775050.png") }}>
-                            <img src="https://media.glassdoor.com/sql/11891/netflix-squarelogo-1508988775050.png" alt="" />
-                            <h3>Netflix</h3>
-                            <p style={{ color: "rgb(12,170,65)" }}>4.6
+            {/* Compare Companies Section */}
+            <div style={{ 
+                backgroundColor: 'white', 
+                padding: '1%'
+            }}>
+                <h2 style={{ marginLeft: '15%' }}>Compare Companies</h2>
+                <p style={{ marginLeft: '15%' }}>See how companies stack up against their competitors using data only found on Glassdoor.</p>
+                <div style={{ 
+                    display: 'flex', 
+                    width: '80%', 
+                    margin: 'auto' 
+                }}>
+                    <div style={{ display: 'flex', margin: '10px' }}>
+                        <div 
+                            style={{
+                                border: '1px solid #f5f5f5',
+                                width: '200px',
+                                height: '120px',
+                                padding: '1%',
+                                textAlign: 'center',
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => showDetail(featuredCompanies[0])}
+                        >
+                            <img 
+                                src={featuredCompanies[0]?.logo} 
+                                alt={featuredCompanies[0]?.name}
+                                style={{
+                                    border: '1px solid #e6e6e6',
+                                    borderRadius: '3px',
+                                    width: '50px'
+                                }} 
+                            />
+                            <h3 style={{ margin: 0 }}>{featuredCompanies[0]?.name}</h3>
+                            <p style={{ 
+                                color: "rgb(12,170,65)", 
+                                margin: 0 
+                            }}>
+                                {featuredCompanies[0]?.rating.toFixed(1)}
                                 <FaStar color="rgb(12,170,65)" fontSize="12px" />
                             </p>
                         </div>
-                        <div onClick={() => { showDetail("Google", "https://media.glassdoor.com/sql/9079/google-squarelogo-1441130773284.png") }}>
-                            <img src="https://media.glassdoor.com/sql/9079/google-squarelogo-1441130773284.png" alt="" />
-                            <h3>Google</h3>
-                            <p style={{ color: "rgb(12,170,65)" }}>4.7
+                        <div 
+                            style={{
+                                border: '1px solid #f5f5f5',
+                                width: '200px',
+                                height: '120px',
+                                padding: '1%',
+                                textAlign: 'center',
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => showDetail(featuredCompanies[1])}
+                        >
+                            <img 
+                                src={featuredCompanies[1]?.logo} 
+                                alt={featuredCompanies[1]?.name}
+                                style={{
+                                    border: '1px solid #e6e6e6',
+                                    borderRadius: '3px',
+                                    width: '50px'
+                                }} 
+                            />
+                            <h3 style={{ margin: 0 }}>{featuredCompanies[1]?.name}</h3>
+                            <p style={{ 
+                                color: "rgb(12,170,65)", 
+                                margin: 0 
+                            }}>
+                                {featuredCompanies[1]?.rating.toFixed(1)}
                                 <FaStar color="rgb(12,170,65)" fontSize="12px" />
                             </p>
                         </div>
-                    </Card2>
-                    <Card2>
-                        <div onClick={() => { showDetail("Microsoft", "https://media.glassdoor.com/sqls/1651/microsoft-squarelogo-1479856042252.png") }}>
-                            <img src="https://media.glassdoor.com/sqls/1651/microsoft-squarelogo-1479856042252.png" alt="" />
-                            <h3>Microsoft</h3>
-                            <p style={{ color: "rgb(12,170,65)" }}>4.4
+                    </div>
+                    <div style={{ display: 'flex', margin: '10px' }}>
+                        <div 
+                            style={{
+                                border: '1px solid #f5f5f5',
+                                width: '200px',
+                                height: '120px',
+                                padding: '1%',
+                                textAlign: 'center',
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => showDetail(featuredCompanies[2])}
+                        >
+                            <img 
+                                src={featuredCompanies[2]?.logo} 
+                                alt={featuredCompanies[2]?.name}
+                                style={{
+                                    border: '1px solid #e6e6e6',
+                                    borderRadius: '3px',
+                                    width: '50px'
+                                }} 
+                            />
+                            <h3 style={{ margin: 0 }}>{featuredCompanies[2]?.name}</h3>
+                            <p style={{ 
+                                color: "rgb(12,170,65)", 
+                                margin: 0 
+                            }}>
+                                {featuredCompanies[2]?.rating.toFixed(1)}
                                 <FaStar color="rgb(12,170,65)" fontSize="12px" />
                             </p>
                         </div>
-                        <div onClick={() => { showDetail("Amazon", "https://media.glassdoor.com/sql/6036/amazon-squarelogo-1552847650117.png") }}>
-                            <img src="https://media.glassdoor.com/sql/6036/amazon-squarelogo-1552847650117.png" alt="" />
-                            <h3>Amazon</h3>
-                            <p style={{ color: "rgb(12,170,65)" }}>4.3
+                        <div 
+                            style={{
+                                border: '1px solid #f5f5f5',
+                                width: '200px',
+                                height: '120px',
+                                padding: '1%',
+                                textAlign: 'center',
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => showDetail(featuredCompanies[3])}
+                        >
+                            <img 
+                                src={featuredCompanies[3]?.logo} 
+                                alt={featuredCompanies[3]?.name}
+                                style={{
+                                    border: '1px solid #e6e6e6',
+                                    borderRadius: '3px',
+                                    width: '50px'
+                                }} 
+                            />
+                            <h3 style={{ margin: 0 }}>{featuredCompanies[3]?.name}</h3>
+                            <p style={{ 
+                                color: "rgb(12,170,65)", 
+                                margin: 0 
+                            }}>
+                                {featuredCompanies[3]?.rating.toFixed(1)}
                                 <FaStar color="rgb(12,170,65)" fontSize="12px" />
                             </p>
                         </div>
-                    </Card2>
+                    </div>
                 </div>
-                <h3 style={{ color: "rgb(24,97,191)", marginLeft: "40%" }}>Compare Companies <AiOutlineRight /> </h3>
+                <h3 style={{ 
+                    color: "rgb(24,97,191)", 
+                    marginLeft: "40%" 
+                }}>
+                    Compare Companies <AiOutlineRight /> 
+                </h3>
+                
+                {/* Explore Sectors Section */}
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                    <h2>Explore Sectors</h2>
-                    <div style={{ display: "flex" }}>
-                        <Card3>
-                            <div>
-
+                    <h2 style={{ marginLeft: "15%" }}>Explore Sectors</h2>
+                    <div style={{ display: "flex", width: "80%", margin: "auto" }}>
+                        <div style={{ 
+                            border: "1px solid #c7c7c7", 
+                            fontWeight: "500", 
+                            width: "400px", 
+                            height: "80px", 
+                            margin: "5px", 
+                            padding: "1%",
+                            display: "flex",
+                            alignItems: "center"
+                        }}>
+                            <div style={{ 
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: "30px",
+                                height: "30px",
+                                marginRight: "10px"
+                            }}>
                                 <RiCustomerService2Line fontSize="20px" />
                             </div>
-
                             <p>Customer Services</p>
-                        </Card3>
-                        <Card3>
-                            <div>
-                                <FaBalanceScaleLeft fontSize="20px" />
-                            </div>
-
-                            <p>Accounting & Legal</p>
-                        </Card3>
-                        <Card3>
-                            <div>
-                                <FaFileInvoiceDollar fontSize="20px" />
-                            </div>
-                            <p>Finance</p>
-                        </Card3>
-                        <Card3>
-                            <div>
-                                <FiPenTool fontSize="20px" />
-                            </div>
-                            <p>Arts, Entertainment &...</p>
-                        </Card3>
-                        <Card3>
-                            <div>
-                                <GrTools fontSize="20px" />
-                            </div>
-                            <p>Building, Repairs &...</p>
-                        </Card3>
+                        </div>
+                        {/* Add other sector cards similarly */}
                     </div>
                 </div>
-            </Cont3>
+            </div>
 
             <Footer />
         </>
-    )
+    );
 }
-
