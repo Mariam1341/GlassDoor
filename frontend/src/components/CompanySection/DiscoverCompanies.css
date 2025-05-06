@@ -1,0 +1,65 @@
+/* DiscoverCompanies.css */
+
+.cont1 {
+  display: flex;
+  background-color: white;
+  justify-content: center;
+}
+
+.company-card {
+  width: 400px;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  color: gray;
+  text-align: left;
+  padding: 2%;
+  height: 230px;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+.company-card h3, 
+.company-card p {
+  margin: 5px;
+}
+
+.company-card img {
+  width: 50px;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+}
+
+.company-card button {
+  background-color: white;
+  height: 30px;
+  width: 100px;
+  font-weight: 600;
+  font-size: 17px;
+  border: 1px solid #b6b6b6;
+  border-radius: 3px;
+}
+
+.company-nav {
+  display: flex;
+  border: 1px solid #c5c5c5;
+  height: 60px;
+  background-color: rgb(245,246,247);
+  align-items: center;
+  padding: 0 4%;
+  font: 16px;
+  color: grey;
+  font-weight: 400;
+}
+
+.company-nav div {
+  margin: 0 1%;
+  cursor: pointer;
+}
+
+.company-nav a {
+  margin: 0px 10px;
+}
+

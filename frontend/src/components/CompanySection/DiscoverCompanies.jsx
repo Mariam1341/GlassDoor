@@ -25,7 +25,7 @@ import { useHistory, Link } from 'react-router-dom';
 import './DiscoverCompanies.css';
 import axios from 'axios';
 
-export function DiscoverCompanies() {
+export const DiscoverCompanies = () =>{
     const history = useHistory();
     const [companies, setCompanies] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -38,7 +38,7 @@ export function DiscoverCompanies() {
 
     const fetchCompanies = async () => {
         try {
-            const response = await axios.get('http://localhost:9090/api/v1/company');
+            const response = await axios.get('http://localhost:8080/api/v1/company');
             setCompanies(response.data);
             setLoading(false);
         } catch (err) {
@@ -223,7 +223,7 @@ export function DiscoverCompanies() {
                                     ))}
                                 </div>
                                 <p>"Best company and best work culture ever"</p>
-                                <p>July 3,2021</p>
+                                <p>July 3,2024</p>
                             </div>
                         </div>
                     ))}

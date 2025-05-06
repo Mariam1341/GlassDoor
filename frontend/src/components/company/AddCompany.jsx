@@ -39,7 +39,7 @@ export const AddCompany = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:9090/api/v1/company", {
+      const res = await fetch("http://localhost:8080/api/v1/company", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

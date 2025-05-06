@@ -7,7 +7,7 @@ export function ReviewForm() {
     const [selectedRedioBtn, setSelectedRedioBtn] = useState(1);
     const [askForCurrentOrFormer, setAskForCurrentOrFormer] = useState("flex")
     const [yearPopupStyle, setYearPopupStyle] = useState("none");
-    const [chosenYear, setChosenYear] = useState("2021")
+    const [chosenYear, setChosenYear] = useState("2025")
     const [showFAQStyle, setShowFAQStyle] = useState(false);
 
     const selectedRedioBtnStyle = {
@@ -104,12 +104,12 @@ export function ReviewForm() {
 
                     <div className={styles.yearsPopup} style={{ display: yearPopupStyle }} onClick={() => { setYearPopupStyle("none") }}>
                         <ul>
+                            <li onClick={() => { setChosenYear("2025") }} >2025</li>
+                            <li onClick={() => { setChosenYear("2024") }} >2024</li>
+                            <li onClick={() => { setChosenYear("2023") }} >2023</li>
+                            <li onClick={() => { setChosenYear("2022") }} >2022</li>
                             <li onClick={() => { setChosenYear("2021") }} >2021</li>
                             <li onClick={() => { setChosenYear("2020") }} >2020</li>
-                            <li onClick={() => { setChosenYear("2019") }} >2019</li>
-                            <li onClick={() => { setChosenYear("2018") }} >2018</li>
-                            <li onClick={() => { setChosenYear("2017") }} >2017</li>
-                            <li onClick={() => { setChosenYear("2016") }} >2016</li>
                         </ul>
                     </div>
                 </div>
@@ -117,9 +117,9 @@ export function ReviewForm() {
                 <div className={styles.rightPart}>
                     <h3>Millions of people like you have contributed to Glassdoor.</h3>
                     <p><i>There is no other site like Glassdoor. The reviews and salaries are invaluable to anyone wanting to accelerate their career.</i></p>
-                    <p className={styles.author}><i>-Rich M.</i></p>
+                    <p className={styles.author}><i>-Mariam Salah.</i></p>
                     <p><i>Glassdoor has helped me negotiate my salary and make sure I'm getting paid fairly.</i></p>
-                    <p className={styles.author}><i>– Bijal A.</i></p>
+                    <p className={styles.author}><i>– Mohammed Ali.</i></p>
                     <div className={styles.FAQsection} onClick={() => { setShowFAQStyle(!showFAQStyle) }}>
                         <i className="fas fa-caret-right"></i>
                         <p>Frequently Asked Questions</p>
@@ -136,10 +136,6 @@ export function ReviewForm() {
                         <p>You can even contribute if you work at a small company or you're the only person with your job title. Learn More about maintaining your anonymity.</p>
                     </div>
                 </div>
-            </div>
-            <div className={styles.copyRightAndTC}>
-                <p>Copyright © 2008–2021, Glassdoor, Inc. "Glassdoor" and logo are proprietary trademarks of Glassdoor, Inc.</p>
-                <p>Terms of UsePrivacy & Cookies</p>
             </div>
         </div>
     );
