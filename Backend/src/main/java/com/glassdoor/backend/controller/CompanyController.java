@@ -50,4 +50,3 @@ public class CompanyController {
         return companyService.searchByName(name);
     }
 }
-
