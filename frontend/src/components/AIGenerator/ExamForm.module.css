@@ -1,29 +1,49 @@
 .examForm {
-  max-width: 700px;
+  max-width: 900px;
   margin: auto;
   background-color: #f7fdf9;
   border: 1px solid #d0eadd;
   border-radius: 10px;
   padding: 30px;
+  font-size: 20px;
+  hight:auto;
 }
 
+.form{
+  display:flex;
+  flex-direction: column;
+  gap:15px;
+}
 .questionBlock {
   margin-bottom: 25px;
   padding: 15px;
   border-bottom: 1px solid #cce;
+ 
 }
 
 .option {
   display: block;
   margin-top: 5px;
+  font-size: 20px;
+}
+.title {
+  text-align: center;
+  color: #0caa41;
+  margin-bottom: 20px;
 }
 
-.submitBtn {
+.btn {
   background-color: #0caa41;
   color: white;
   font-weight: bold;
-  padding: 12px;
   border: none;
+  padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 20px;
+ 
+}
+
+.btn:hover {
+  background-color: #089036;
 }

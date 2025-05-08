@@ -39,6 +39,7 @@ public class UserService implements UserDetailsService {
 //                .id(user.getId())
                 .email(user.getEmail())
                 .userName(user.getName())
+                .role(user.getRole())
                 .build();
     }
 

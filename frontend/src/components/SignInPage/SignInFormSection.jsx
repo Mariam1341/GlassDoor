@@ -85,6 +85,7 @@ const SignInCont = styled.div`
 `
 
 export function SignInFormSection() {
+  const [userData, setUserData] = useState(null);
   const [loginData, setLoginData] = useState({ email: "", password: "", username: "" });
   const history = useHistory();
   const [modalStatus, setModalStatus] = useState({
@@ -115,7 +116,7 @@ export function SignInFormSection() {
         setLoginData({ email: "", password: "", name: "" });
         console.log(data);
         if (data.token) {
-          localStorage.setItem("authToken", data.token);
+          localStorage.setItem("token", data.token);
           console.log("Token saved:", data.token);
         }
       })
@@ -130,15 +131,48 @@ export function SignInFormSection() {
     axios
       .post("http://localhost:8080/api/v1/auth/authenticate", loginData)
       .then(({ data }) => {
+        
         console.log("Login Successful:", data);
         localStorage.setItem("token", data.token);
-        history.push("/Dashboard");
+        // history.push("/Dashboard");
       })
       .catch((err) => {
         console.log("Login Error:", err);
         setIsInvalid("block");
       });
-  };
+      const fetchProfile = async () => {
+              const token = localStorage.getItem("token");
+              try {
+                  const response = await axios.get("http://localhost:3000/api/v1/user/profile", {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+                  });
+      
+                  const user = response.data.data;
+                  
+
+                  console.log(user.role)
+                  if(user.role == 'JOB_SEEKER'){
+                    
+                    history.push("/Dashboard");
+                  }else{
+                    // history.push("/comapnyDashboard");
+                  }   
+                  console.log("User Data:", response.data.data);
+                  
+              } catch (err) {
+               
+                  console.error(err);
+              }
+              };
+      
+              fetchProfile();
+
+                 
+}
+          
+  
 
   const [isRegistered, setIsRegistered] = useState("none");
   const [isInValid, setIsInvalid] = useState("none");

@@ -19,9 +19,7 @@ export const PromptForm = () => {
     ]
   };
   
-  const inst= ```The response should be only valid raw JSON.
-Do not include markdown, triple backticks, or any explanations.
-The JSON structure must look like this:```;
+  const inst= "The response should be only valid raw JSON. Do not include markdown, triple backticks, or any explanations. The JSON structure must look like this:";
 
   const handleSubmit = async (e) => {
     e.preventDefault();

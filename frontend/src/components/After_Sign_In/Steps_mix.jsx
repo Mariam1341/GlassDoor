@@ -5,21 +5,21 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 const StepsMix = () => {
     const [userData, setUserData] = useState(null);
+    // let userData = {};
     const [error, setError] = useState("");
 
     useEffect(() => {
         const fetchProfile = async () => {
-        const token = localStorage.getItem("authToken");
-        
+        const token = localStorage.getItem("token");
         try {
-            const response = await axios.get("/api/v1/user/profile", {
+            const response = await axios.get("http://localhost:3000/api/v1/user/profile", {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
             });
 
             setUserData(response.data.data); 
-            console.log("User Data:", response.data.data);
+            console.log("User Data:", userData);
             
         } catch (err) {
             setError("Failed to fetch profile. Please log in again.");
@@ -40,7 +40,7 @@ return(
            </Link></div>
             <div className={styles.profile_div2_2}>
                 <div>
-                {/* {userData.email} */}
+                {userData ? userData.userName : "Loading..."}
                 </div>
                 <Link to="/Profile"><div className={styles.profile_div2_2_2}>
                     <span>Finish Your Profile</span>
