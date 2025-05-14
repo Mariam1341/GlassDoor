@@ -22,4 +22,5 @@ public class CompanyDTO {
     private String ceo;
     private String logo;
     private double rating;
+    private String brief;
 }

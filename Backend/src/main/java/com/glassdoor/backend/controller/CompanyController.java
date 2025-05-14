@@ -22,6 +22,7 @@ public class CompanyController {
 
     @PostMapping
     public ApiResponse<CompanyDTO> addCompany(@RequestBody CompanyDTO dto) {
+        System.out.println("Received request to add company: " + dto);
         return companyService.addCompany(dto);
     }
 

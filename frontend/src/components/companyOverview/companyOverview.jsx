@@ -2,17 +2,45 @@ import styles from './companyOverview.module.css';
 import { Navbar } from '../navbar';
 import { Footer } from '../footer'
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export function CompanyDetails({ location }) {
-    const companyname = location.state.name;
-    const image = location.state.image;
+
+    console.log('here is my response', location);
+    const companyID = location.state.id;
+    const [company, setCompany] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    // const image = location.state.image;
+
+// 
+
+
+    const fetchCompany = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get('http://localhost:8080/api/v1/company/' + companyID);
+            console.log('companyData:', response.data);
+            console.log('API companyData2:', response.data.data);
+            
+            const companyData = response.data.data ? response.data.data : [];
+            console.log('companyData:', companyData);
+
+            setCompany(companyData);
+            console.log('company:', company);
+
+            setLoading(false);
+        } catch (err) {
+            console.error('Error fetching companies:', err.message);
+            setError(err.message);
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        fetchCompany();
     }, [])
-
 
     return (
         <div>
@@ -23,8 +51,8 @@ export function CompanyDetails({ location }) {
                         <img src="https://media.glassdoor.com/banner/bh/9848/paypal-banner-1477525372879.jpg" alt="" />
                     </div>
                     <div className={styles.logo}>
-                        <img src={image} alt="logo" />
-                        <h1 className={styles.companyName}>{companyname}</h1>
+                        <img src={company.logo} alt="logo" />
+                        <h1 className={styles.companyName}>{company.name}</h1>
                     </div>
                     <div className={styles.featuresContainer}>
                         <div className={styles.flex}>
@@ -32,30 +60,30 @@ export function CompanyDetails({ location }) {
                                 <i className="fas fa-bullseye"></i>
                                 <p>Overview</p>
                             </div>
-                            <div className={styles.features}>
+                            {/* <div className={styles.features}>
                                 <p>5.1k</p>
                                 <p>Reviews</p>
-                            </div>
+                            </div> */}
                             <div className={styles.features}>
                                 <p>2.4k</p>
                                 <p>Jobs</p>
                             </div>
-                            <div className={styles.features}>
+                            {/* <div className={styles.features}>
                                 <p>11k</p>
                                 <p>Salaries</p>
-                            </div>
+                            </div> */}
                             <div className={styles.features}>
                                 <p>1.3k</p>
                                 <p>Interviews</p>
                             </div>
-                            <div className={styles.features}>
+                            {/* <div className={styles.features}>
                                 <p>2.1k</p>
                                 <p>Banefits</p>
                             </div>
                             <div className={styles.features}>
                                 <p>98</p>
                                 <p>Photos</p>
-                            </div>
+                            </div> */}
                         </div>
                         <div className={styles.flex}>
                             <button className={styles.featuresBtnFollow}>Follow</button>
@@ -65,45 +93,43 @@ export function CompanyDetails({ location }) {
                 </div>
                 <div className={styles.flex}>
                     <div className={styles.companyoverview}>
-                        <h3>{companyname} Overview</h3>
+                        <h3>{company.name} Overview</h3>
                         <div className={styles.flex}>
                             <div>
                                 <div className={styles.flex}>
                                     <p className={styles.typeHeading}>Website: </p>
-                                    <Link><p>www.{companyname}.com</p></Link>
+                                    <Link><p>{company.website}</p></Link>
                                 </div>
                                 <div className={styles.flex}>
                                     <p className={styles.typeHeading}>Size: </p>
-                                    <p>10000+ Employees</p>
+                                    <p>{company.totalEmployee}+ Employees</p>
                                 </div>
                                 <div className={styles.flex}>
                                     <p className={styles.typeHeading}>Type: </p>
-                                    <p>Company - Public (PYPL)</p>
+                                    <p>{company.companyType}</p>
                                 </div>
                                 <div className={styles.flex}>
                                     <p className={styles.typeHeading}>Revenue: </p>
-                                    <p>$10+ billion (USD)</p>
+                                    <p>{company.revenue}</p>
                                 </div>
                             </div>
                             <div>
                                 <div className={styles.flex}>
-                                    <p className={styles.typeHeading}>Headquarters: </p>
-                                    <p>San Jose, CA</p>
+                                    <p className={styles.typeHeading}>CEO: </p>
+                                    <p>{company.ceo}</p>
                                 </div>
                                 <div className={styles.flex}>
                                     <p className={styles.typeHeading}>Founded: </p>
-                                    <p>1998</p>
+                                    <p>{company.foundedYear}</p>
                                 </div>
                                 <div className={styles.flex}>
-                                    <p className={styles.typeHeading}>Industry: </p>
-                                    <p>Internet</p>
+                                    <p className={styles.typeHeading}>status: </p>
+                                    <p>{company.status}</p>
                                 </div>
                             </div>
                         </div>
 
-                        <p>At {companyname}, we believe that now is the time to democratize financial services so that moving and managing money is a right for all citizens, not just the affluent. We are driven by this purpose, and we uphold our cultural values of collaboration, innovation, wellness and inclusion as our guide for making decisions and conducting business every day. It is our duty and privilege to be customer champions and put those we serve at the center of everything we do.</p>
-                        <p>We are one team that respects and values diversity of thought for everyone, everywhere, and we actively seek to create an energizing workplace that brings out the best in all of us. If you’re ready to shape the future of money, join the team at {companyname}. We're proud to work here. You will be too.</p>
-                        <p><span>Mission:</span> At {companyname} (Nasdaq: PYPL), we put people at the center of everything we do. Founded in 1998, we continue to be at the forefront of the digital payments revolution, last year we processed 4 billion payments, of which 1 billion were made on mobile devices. {companyname} gives people better ways to connect to their money and to each other, helping them safely access and move their money and offering a choice of how they would like to pay or be paid.</p>
+                        <p>At {company.name},{company.brief}</p>
                     </div>
                     <div className={styles.rightExtraInfo}>
                         <h2>Jobs You May Like</h2>
@@ -113,7 +139,7 @@ export function CompanyDetails({ location }) {
                             </div>
                             <div className={styles.rightCompanyInfo}>
                                 <p>Software Engineer 3</p>
-                                <p>{companyname}, Inc. - Bangalore</p>
+                                <p>{company.name}, Inc. - Bangalore</p>
                                 <p>₹3L - ₹10L</p>
                             </div>
                         </div>
@@ -123,7 +149,7 @@ export function CompanyDetails({ location }) {
                             </div>
                             <div className={styles.rightCompanyInfo}>
                                 <p>MTS1, Software Engineer</p>
-                                <p>{companyname}, Inc. - Bangalore</p>
+                                <p>{company.name}, Inc. - Bangalore</p>
                             </div>
                         </div>
                         <div className={styles.flex}>

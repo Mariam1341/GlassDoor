@@ -2,7 +2,7 @@ import { Navbar } from '../navbar';
 import { Footer } from '../footer';
 import styled from "styled-components";
 import styles from "./compareCompany.module.css";
-import {Link, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import SignIn3mix from '../After_Sign_In/New_mix';
 
@@ -22,7 +22,8 @@ import { FaBalanceScaleLeft } from 'react-icons/fa';
 import { FaFileInvoiceDollar } from 'react-icons/fa';
 import { FiPenTool } from 'react-icons/fi';
 import { GrTools } from 'react-icons/gr';
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const CompanyNav = styled.nav`
     display: flex;
@@ -97,21 +98,50 @@ const Card3 = styled.div`
 
 
 
-export function ShowCompareCompanies({location}) {
-   // console.log(location);
+export function ShowCompareCompanies({ location }) {
+    console.log("location ******", location);
     const company1 = location.state.first;
     const company2 = location.state.second;
+    const [companies, setCompanies] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const history = useHistory();
-    const showDetail = (name, image) => {
+    const showDetail = (id) => {
         history.push({
             pathname: "/companyDetails",
             state: {
-                name,
-                image
+                id
             }
         })
     }
+
+
+
+    const fetchCompanies = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get('http://localhost:8080/api/v1/company');
+            console.log('API Response Object:', response.data);
+            console.log('API Response Array:', response.data.data);
+            const companiesData = Array.isArray(response.data.data) ? response.data.data : [];
+            console.log('companiesData:', companiesData);
+
+            setCompanies(companiesData);
+            console.log('companies:', companies);
+
+            setLoading(false);
+        } catch (err) {
+            console.error('Error fetching companies:', err.message);
+            setError(err.message);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchCompanies();
+    }, []);
+
 
     return (
         <div>
@@ -251,37 +281,46 @@ export function ShowCompareCompanies({location}) {
                 <p>See how companies stack up against their competitors using data only found on Glassdoor.</p>
                 <div>
                     <Card2>
-                        <div onClick={()=>{showDetail("Netflix", "https://media.glassdoor.com/sql/11891/netflix-squarelogo-1508988775050.png")}}>
+                        {/* <div onClick={() => { showDetail("Netflix", "https://media.glassdoor.com/sql/11891/netflix-squarelogo-1508988775050.png") }}>
                             <img src="https://media.glassdoor.com/sql/11891/netflix-squarelogo-1508988775050.png" alt="" />
                             <h3>Netflix</h3>
                             <p style={{ color: "rgb(12,170,65)" }}>4.6
                                 <FaStar color="rgb(12,170,65)" fontSize="12px" />
                             </p>
                         </div>
-                        <div onClick={()=>{showDetail("Google", "https://media.glassdoor.com/sql/9079/google-squarelogo-1441130773284.png")}}>
+                        <div onClick={() => { showDetail("Google", "https://media.glassdoor.com/sql/9079/google-squarelogo-1441130773284.png") }}>
                             <img src="https://media.glassdoor.com/sql/9079/google-squarelogo-1441130773284.png" alt="" />
                             <h3>Google</h3>
                             <p style={{ color: "rgb(12,170,65)" }}>4.7
                                 <FaStar color="rgb(12,170,65)" fontSize="12px" />
                             </p>
                         </div>
-                    </Card2>
-                    <Card2>
-                        <div onClick={()=>{showDetail("Microsoft", "https://media.glassdoor.com/sqls/1651/microsoft-squarelogo-1479856042252.png")}}>
+                        <div onClick={() => { showDetail("Microsoft", "https://media.glassdoor.com/sqls/1651/microsoft-squarelogo-1479856042252.png") }}>
                             <img src="https://media.glassdoor.com/sqls/1651/microsoft-squarelogo-1479856042252.png" alt="" />
                             <h3>Microsoft</h3>
                             <p style={{ color: "rgb(12,170,65)" }}>4.4
                                 <FaStar color="rgb(12,170,65)" fontSize="12px" />
                             </p>
                         </div>
-                        <div onClick={()=>{showDetail("Amazon", "https://media.glassdoor.com/sql/6036/amazon-squarelogo-1552847650117.png")}}>
+                        <div onClick={() => { showDetail("Amazon", "https://media.glassdoor.com/sql/6036/amazon-squarelogo-1552847650117.png") }}>
                             <img src="https://media.glassdoor.com/sql/6036/amazon-squarelogo-1552847650117.png" alt="" />
                             <h3>Amazon</h3>
                             <p style={{ color: "rgb(12,170,65)" }}>4.3
                                 <FaStar color="rgb(12,170,65)" fontSize="12px" />
                             </p>
+                        </div> */}
+
+
+                       {companies.map(company => (
+                        <div key={company.id || company.name} onClick={() => showDetail(company.id)}>
+                            <img src={ "https://media.glassdoor.com/sql/6036/amazon-squarelogo-1552847650117.png"} alt={company.name} />
+                            <h3>{company.name}</h3>
                         </div>
+                    ))}
                     </Card2>
+                    {/* <Card2>
+                        
+                    </Card2> */}
                 </div>
                 <h3 style={{ color: "rgb(24,97,191)", marginLeft: "40%" }}>Compare Companies <AiOutlineRight /> </h3>
                 <div style={{ display: "flex", flexDirection: "column" }}>

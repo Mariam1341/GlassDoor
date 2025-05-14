@@ -7,6 +7,7 @@ import { FaStar } from 'react-icons/fa';
 import { BsStar } from 'react-icons/bs';
 import axios from 'axios';
 import { ModalPage } from "../Modal/Modal";
+import { debounce } from 'lodash';
 
 const CompareCont = styled.div`
     width: 1000px;
@@ -141,6 +142,7 @@ const CompanyNav = styled.nav`
 export function CompareCompany() {
     const [companies, setCompanies] = useState({});
     const history = useHistory();
+    const [isLoading, setIsLoading] = useState(false);
     const [firstCompany, setFirstCompany] = useState({});
     const [secondCompany, setSecondCompany] = useState({});
     const [modalStatus, setModalStatus] = useState({
@@ -150,8 +152,8 @@ export function CompareCompany() {
 
     const handleHideModal = () => {
         setTimeout(() => {
-            setModalStatus({...modalStatus, isOpen: false, messege: ""});
-        },3000)
+            setModalStatus({ ...modalStatus, isOpen: true, message: "Please type correct company name!" });
+        }, 3000)
     }
 
 
@@ -160,52 +162,88 @@ export function CompareCompany() {
     }, [])
 
 
-    const handleChange = (e) => {
+    const handleChange = debounce((e) => {
         const { name, value } = e.target;
         setCompanies({ ...companies, [name]: value });
-    }
+    }, 300);
 
     const handleComparison = async () => {
-        if ((companies.company1 === undefined || companies.company2 === "") || companies.company2 === undefined || companies.company1 === "") {
-            setModalStatus({...modalStatus, isOpen: true, messege: "Please type correct company name!"});
+        if (!companies.company1 || !companies.company2) {
+            setModalStatus({
+                ...modalStatus,
+                isOpen: true,
+                messege: "Please type correct company name!"
+            });
             handleHideModal();
             return;
         }
 
+        setIsLoading(true);
         companies.company1 = companies.company1[0].toUpperCase() + companies.company1.substring(1);
         companies.company2 = companies.company2[0].toUpperCase() + companies.company2.substring(1);
 
-        getData(companies.company1, 1);
-        getData(companies.company2, 2);
-    }
+        try {
+            await Promise.all([
+                getData(companies.company1, 1),
+                getData(companies.company2, 2)
+            ]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const getData = (name, num) => {
-        axios.get(`https://glassdoor-clone-server.herokuapp.com/companies?q=${name}`).then((res) => {
-            if (res.data.length === 0) {
-                setModalStatus({...modalStatus, isOpen: true, messege: `${name} is not registered!`});
-                handleHideModal();
-                return;
-            }
+        axios.get(`http://localhost:3000/api/v1/company/search?name=${name}`)
+            .then((res) => {
+                console.log('API Response:', res.data);
 
-            if (num === 1) {
-                setFirstCompany({ ...res.data[0] });
-            }
-            else {
-                setSecondCompany({ ...res.data[0] });
-            }
-        }).catch((err) => {
-            console.log(err);
-        })
-    }
+                // Check if the response contains data and is structured as expected
+                if (!res.data || !res.data.data || res.data.data.length === 0) {
+                    setModalStatus({
+                        ...modalStatus,
+                        isOpen: true,
+                        messege: `${name} is not registered!`
+                    });
+                    handleHideModal();
+                    return;
+                }
+
+                // Access the company data from the response
+                const companyData = res.data.data[0]; // Adjust based on actual API response structure
+
+                if (num === 1) {
+                    setFirstCompany(companyData);
+                    console.log('First Company:', companyData);
+                } else {
+                    setSecondCompany(companyData);
+                    console.log('Second Company:', companyData);
+                }
+            })
+            .catch((err) => {
+                console.error('API Error:', err);
+                setModalStatus({
+                    ...modalStatus,
+                    isOpen: true,
+                    messege: `Error fetching data for ${name}. Please try again.`
+                });
+                handleHideModal();
+            });
+    };
 
     useEffect(() => {
-        showComparison();
-    }, [secondCompany])
+        if (firstCompany && secondCompany) {
+            showComparison();
+        }
+    }, [firstCompany, secondCompany]);
+
+
 
     const showComparison = () => {
         if (Object.keys(firstCompany).length === 0 || Object.keys(secondCompany).length === 0) {
             return;
         }
+        console.log('First Company:', firstCompany);
+        console.log('Second Company:', secondCompany);
 
         history.push({
             pathname: "/ShowComparison",
@@ -238,7 +276,9 @@ export function CompareCompany() {
                         <h2>VS</h2>
                         <input type="text" name="company2" placeholder="Company name" onChange={handleChange} />
                     </div>
-                    <button onClick={handleComparison}>Compare Companies</button>
+                    <button onClick={handleComparison} disabled={isLoading}>
+                        {isLoading ? 'Loading...' : 'Compare Companies'}
+                    </button>
                     <p>Choose two companies to compare using data only found on Glassdoor.</p>
                 </div>
 
@@ -248,7 +288,7 @@ export function CompareCompany() {
             <div style={{ width: "1000px", margin: "auto", textAlign: "left", fontWeight: "400" }}>
                 <h2>Popular Companies Comparisons</h2>
             </div>
-            <CompanyList>
+            {/* <CompanyList>
                 <div>
                     <div>
                         <div>
@@ -560,7 +600,7 @@ export function CompareCompany() {
 
                 </div>
 
-            </CompanyList>
+            </CompanyList> */}
 
             <Footer />
         </div>

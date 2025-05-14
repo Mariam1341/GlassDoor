@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private final UserService userService;
 
-    @GetMapping("/profile")
+        @GetMapping("/profile")
     public ResponseEntity<ApiResponse<?>> getUserProfile(@RequestHeader("Authorization") String authHeader) {
         String token = authHeader.replace("Bearer ", "");
         return ResponseEntity.ok(userService.getUserProfile(token));
@@ -31,4 +31,12 @@ public class UserController {
         String token = authHeader.replace("Bearer ", "");
         return ResponseEntity.ok(userService.updateUser(token, request));
     }
+
+
+    // recruiter will remove job post
+
+//    @PostMapping("/{id}/removejob")
+//    public ResponseEntity<ApiResponse<?>> removeJob(@PathVariable Long id, @RequestBody String jobId) {
+//        return new ResponseEntity<>(userService.removeJobFromRecruiter(id, jobId), HttpStatus.OK);
+//    }
 }
