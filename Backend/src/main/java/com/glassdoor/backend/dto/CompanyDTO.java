@@ -17,6 +17,7 @@ public class CompanyDTO {
     private String salaryRange;
     private String revenue;
     private String foundedYear;
+    private String createdBy;
     private String status;
     private String companyType;
     private String ceo;

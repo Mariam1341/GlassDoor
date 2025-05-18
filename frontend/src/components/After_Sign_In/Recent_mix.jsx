@@ -12,7 +12,7 @@ const RecentMix = () => {
         <div className={styles.recentMix_div1_2}>
           <div className={styles.recentMix_div1_2_1}>
             <div>
-                <h3>full stack engineer In Jaipur, Rajasthan</h3>
+                <h3>full stack engineer In Egypt</h3>
             </div>
             <div className={styles.recentMix_div1_2_1_2}>
                 <div className={styles.recentMix_div1_2_1_2_1}>

@@ -70,7 +70,7 @@ const Suggest = ( val ) => {
           <div>
             <div>
               <span>{Sdata[0].company}</span>
-              <span>{Sdata[0].location}</span>
+              <span>Egypt</span>
             </div>
           </div>
           <div>
