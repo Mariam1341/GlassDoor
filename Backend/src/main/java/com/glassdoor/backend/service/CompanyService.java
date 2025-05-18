@@ -3,10 +3,16 @@ package com.glassdoor.backend.service;
 import com.glassdoor.backend.dto.CompanyDTO;
 import com.glassdoor.backend.dto.common.ApiResponse;
 import com.glassdoor.backend.entity.Company;
+import com.glassdoor.backend.entity.User;
+import com.glassdoor.backend.exception.CustomAuthenticationExceptions;
 import com.glassdoor.backend.repository.CompanyRepository;
+import com.glassdoor.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 
 import java.util.List;
@@ -18,11 +24,29 @@ public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
 
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private UserRepository userRepository;
+
     public ApiResponse<CompanyDTO> addCompany(CompanyDTO dto) {
         Company company = convertToEntity(dto);
         companyRepository.save(company);
         return new ApiResponse<>(true, "Company added successfully", convertToDTO(company));
     }
+
+    public ApiResponse<CompanyDTO> createCompany(String authHeader, CompanyDTO companyDTO) {
+        String token = authHeader.replace("Bearer ", "");
+        String email = jwtService.extractUserName(token);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new CustomAuthenticationExceptions.UserNotFoundException(email));
+        Company company = convertToEntity(companyDTO);
+        company.setCreatedBy(email);
+        companyRepository.save(company);
+        return new ApiResponse<CompanyDTO>(true, "Company created", convertToDTO(company));
+    }
+
 
     public ApiResponse<CompanyDTO> updateCompany(String id, CompanyDTO dto) {
         Company company = companyRepository.findById(id).orElseThrow(() -> new RuntimeException("Company not found"));
@@ -80,6 +104,7 @@ public class CompanyService {
                 .revenue(dto.getRevenue())
                 .foundedYear(dto.getFoundedYear())
                 .status(dto.getStatus())
+                .createdBy(dto.getCreatedBy())
                 .companyType(dto.getCompanyType())
                 .ceo(dto.getCeo())
                 .logo(dto.getLogo())
@@ -97,6 +122,7 @@ public class CompanyService {
                 .revenue(company.getRevenue())
                 .foundedYear(company.getFoundedYear())
                 .status(company.getStatus())
+                .createdBy(company.getCreatedBy())
                 .companyType(company.getCompanyType())
                 .ceo(company.getCeo())
                 .logo(company.getLogo())

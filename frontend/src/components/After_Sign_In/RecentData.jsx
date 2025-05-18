@@ -4,7 +4,7 @@ const Rdata = [
         rating:2.0,
         position:"Full Stack Web Developer",
         company:"CIMET",
-        location:"Jaipur, Rajasthan",
+        location:"Egypt",
         id:1
     },
     {
@@ -12,7 +12,7 @@ const Rdata = [
         rating:4.4,
         position:"ReactJS Developer - Full Stack Developer (Australian Company)",
         company:"Macayla Education & Placement Services",
-        location:"Jaipur, Rajasthan",
+        location:"Egypt",
         id:2
     },
     {
@@ -20,7 +20,7 @@ const Rdata = [
         rating:3.2,
         position:"Full Stack Laravel/PHP Developer",
         company:"UWS (India)",
-        location:"Jaipur, Rajasthan",
+        location:"Egypt",
         id:3
     },
     {
@@ -28,7 +28,7 @@ const Rdata = [
         rating:4.4,
         position:"ReactJS Developer - Full Stack Developer (Australian Company)",
         company:"Macayla Education & Placement Services",
-        location:"Jaipur, Rajasthan",
+        location:"Egypt",
         id:4
     },
     {
@@ -36,7 +36,7 @@ const Rdata = [
         rating:2.0,
         position:"Full Stack Web Developer",
         company:"CIMET",
-        location:"Jaipur, Rajasthan",
+        location:"Egypt",
         id:5
     }
     

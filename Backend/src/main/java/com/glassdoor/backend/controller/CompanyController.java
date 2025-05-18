@@ -21,9 +21,9 @@ public class CompanyController {
     private CompanyService companyService;
 
     @PostMapping
-    public ApiResponse<CompanyDTO> addCompany(@RequestBody CompanyDTO dto) {
-        System.out.println("Received request to add company: " + dto);
-        return companyService.addCompany(dto);
+    public ApiResponse<CompanyDTO> addCompany( @RequestHeader("Authorization") String authHeader,
+                                               @RequestBody CompanyDTO companyDTO) {
+        return companyService.createCompany(authHeader,companyDTO );
     }
 
     @PutMapping("/{id}")
