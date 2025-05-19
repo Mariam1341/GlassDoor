@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="eb14b2b0-31db-429d-b80a-29e846ca88db" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Backend/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/controller/CompanyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/controller/CompanyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/dto/CompanyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/dto/CompanyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/entity/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/entity/Company.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/service/CompanyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/service/CompanyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/New_mix.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/New_mix.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/RecentData.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/RecentData.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/Recent_mix.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/Recent_mix.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/Suggest.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/Suggest.jsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2xHgksI6Y63gEAVvrMGXuSD842A" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Peter",
+    "ignore.virus.scanning.warn.message": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="eb14b2b0-31db-429d-b80a-29e846ca88db" name="Changes" comment="" />
+      <created>1747600563344</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747600563344</updated>
+    </task>
+    <servers />
+  </component>
+</project>

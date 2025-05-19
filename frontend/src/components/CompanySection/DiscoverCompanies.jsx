@@ -30,6 +30,7 @@ export const DiscoverCompanies = () =>{
     const [companies, setCompanies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -39,7 +40,10 @@ export const DiscoverCompanies = () =>{
     const fetchCompanies = async () => {
         try {
             const response = await axios.get('http://localhost:8080/api/v1/company');
-            setCompanies(response.data);
+            console.log('API Response:', response.data); 
+            const companiesData = Array.isArray(response.data) ? response.data : [];
+            
+            setCompanies(companiesData);
             setLoading(false);
         } catch (err) {
             setError(err.message);

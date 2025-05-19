@@ -62,6 +62,7 @@ public class CompanyService {
         company.setCeo(dto.getCeo());
         company.setLogo(dto.getLogo());
         company.setRating(dto.getRating());
+        company.setBrief(dto.getBrief());
 
         companyRepository.save(company);
         return new ApiResponse<>(true, "Company updated", convertToDTO(company));

@@ -25,7 +25,7 @@ const Dashboard = () => {
             <div>
                 <div className={styles.after_sign_in_upper_whole}>
                     <div className={styles.after_sign_in_heading}>
-                        <h2>Your Glassdoor Dashboard</h2>
+                        <h2>Job Portal</h2>
                     </div>
                     <div className={styles.after_sign_in_upper}>
                         <div>

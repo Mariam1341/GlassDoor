@@ -27,4 +27,5 @@ public class Company {
     private String ceo;
     private String logo;  // base64 or image URL
     private double rating;
+    private String brief;
 }

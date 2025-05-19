@@ -12,6 +12,7 @@ export const AddCompany = () => {
     status: "",
     companyType: "",
     ceo: "",
+    brief:"sdfghjkjfdsdfghjkl",
     logo: "",
  
   });
@@ -39,6 +40,8 @@ export const AddCompany = () => {
     try {
       const token = localStorage.getItem("token");
 
+      // console.log("Company data:", company);
+      
       const res = await fetch("http://localhost:8080/api/v1/company", {
         method: "POST",
         headers: {
@@ -103,6 +106,10 @@ export const AddCompany = () => {
         <div className={styles.formGroup}>
           <label>CEO Name</label>
           <input type="text" name="ceo" value={company.ceo} onChange={handleChange} />
+        </div>
+       <div className={styles.formGroup}>
+          <label>Brief</label>
+          <textarea type="text" name="brief" value={company.brief} onChange={handleChange} />
         </div>
 
         {/* <div className={styles.formGroup}>
