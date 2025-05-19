@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { FaStar } from 'react-icons/fa';
 import { BiHeart } from 'react-icons/bi';
+
 const Card = styled.div`
     color:grey;
     display: flex;

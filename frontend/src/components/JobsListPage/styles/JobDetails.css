@@ -1,0 +1,254 @@
+.job-details-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+  }
+  
+  .job-details-header {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    color: #555;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  
+  .back-button:hover {
+    color: #333;
+  }
+  
+  .back-button i {
+    margin-right: 5px;
+  }
+  
+  .job-details-title-section {
+    display: flex;
+    margin-bottom: 25px;
+  }
+  
+  .company-logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    margin-right: 20px;
+  }
+  
+  .job-title-details {
+    flex: 1;
+  }
+  
+  .job-title-details h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .company-name {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .job-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .job-meta span {
+    display: flex;
+    align-items: center;
+  }
+  
+  .job-meta i {
+    margin-right: 5px;
+  }
+  
+  .job-salary-badge {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    padding: 10px 15px;
+    text-align: center;
+  }
+  
+  .salary-range {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4cd681;
+  }
+  
+  .salary-currency {
+    font-size: 12px;
+    color: #777;
+    margin-top: 3px;
+  }
+  
+  .job-details-content {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin-bottom: 20px;
+  }
+  
+  .job-section {
+    margin-bottom: 30px;
+  }
+  
+  .job-section:last-child {
+    margin-bottom: 0;
+  }
+  
+  .job-section h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .job-section p {
+    line-height: 1.6;
+    color: #555;
+    white-space: pre-line;
+  }
+  
+  .job-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+  }
+  
+  .job-info-item {
+    padding: 10px 0;
+  }
+  
+  .info-label {
+    display: block;
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 5px;
+  }
+  
+  .info-value {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .job-details-actions {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .apply-button, .save-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .apply-button {
+    background-color: #4cd681;
+    color: white;
+    flex: 2;
+  }
+  
+  .apply-button:hover {
+    background-color: #3ab76c;
+  }
+  
+  .save-button {
+    background-color: #f5f5f5;
+    color: #555;
+    flex: 1;
+  }
+  
+  .save-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .job-details-loading,
+  .job-details-error,
+  .job-not-found {
+    text-align: center;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: 30px auto;
+    max-width: 600px;
+  }
+  
+  .job-details-error {
+    color: #e74c3c;
+  }
+  
+  /* Style for the view details button on JobCard */
+  .job-actions {
+    margin-top: 15px;
+    text-align: right;
+  }
+  
+  .view-details-btn {
+    display: inline-block;
+    background-color: #4cd681;
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  .view-details-btn:hover {
+    background-color: #3ab76c;
+  }
+  
+  @media (max-width: 768px) {
+    .job-details-title-section {
+      flex-direction: column;
+    }
+  
+    .company-logo {
+      margin-bottom: 15px;
+    }
+  
+    .job-salary-badge {
+      position: static;
+      margin-top: 15px;
+      background-color: transparent;
+      padding: 0;
+    }
+  
+    .job-info-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .job-details-actions {
+      flex-direction: column;
+    }
+  }

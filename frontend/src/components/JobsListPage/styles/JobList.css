@@ -1,0 +1,129 @@
+/* .job-list-container {
+    width: 100%;
+  }
+  
+  .job-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .sort-by {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .sort-by select {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .jobs-loading,
+  .jobs-error,
+  .no-jobs {
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .jobs-error {
+    color: #e74c3c;
+  }
+
+  /* JobList.css */
+
+.job-list {
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  gap: 20px; /* Space between cards */
+}
+
+/* Optional: Set full width for each card */
+.job-card {
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+  */
+
+.job-list-container {
+  width: 100%;
+}
+
+.job-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+.sort-by {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-by select {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+/* Updated to grid layout with 3 cards per row */
+.job-list-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Wrapper to maintain consistent card heights */
+.job-card-wrapper {
+  height: 100%;
+}
+
+.jobs-loading,
+.jobs-error,
+.no-jobs {
+  padding: 20px;
+  text-align: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.jobs-error {
+  color: #e74c3c;
+}
+
+/* Make job cards responsive */
+@media (max-width: 1200px) {
+  .job-list-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .job-list-grid {
+    grid-template-columns: 1fr;
+  }
+}

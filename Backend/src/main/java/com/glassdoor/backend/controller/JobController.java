@@ -1,23 +1,31 @@
 package com.glassdoor.backend.controller;
 
-import com.glassdoor.backend.dto.JobDTO;
-import com.glassdoor.backend.dto.JobMapper;
-
-import com.glassdoor.backend.entity.JobList;
-import com.glassdoor.backend.service.JobService;
-import lombok.RequiredArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.glassdoor.backend.dto.JobDTO;
+import com.glassdoor.backend.dto.JobMapper;
+import com.glassdoor.backend.entity.JobList;
+import com.glassdoor.backend.service.JobService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/job")
+@RequestMapping("/api/v1/jobs")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
 
@@ -46,7 +54,7 @@ public class JobController {
     public ResponseEntity<JobDTO> createJob(@RequestBody JobDTO jobDTO) {
         JobList job = JobMapper.toEntity(jobDTO);
         job.setPostedAt(LocalDateTime.now());
-
+ 
         return ResponseEntity.ok(JobMapper.toDTO(service.createJob(job)));
     }
 

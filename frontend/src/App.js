@@ -4,7 +4,12 @@ import { DiscoverInterview } from "./components/interview/discoverInterviews";
 import { ReviewForm } from "./components/reviewForm";
 import { SignInPage } from "./components/SignInPage/SignInPage";
 import { CompanyPage } from "./components/CompanySection/CompanyPage";
-import { JobsList } from "./components/JobsListPage/JobsList";
+import   JobsList    from "./components/JobsListPage/JobsList";
+ 
+import JobDetailsPage from './components/JobsListPage/pages/JobDetailsPage';
+
+// import   JobList  from './components/JobsListPage/JobsList';
+
 import { Route, Switch } from "react-router-dom";
 import Dashboard from "./components/After_Sign_In/Dashboard";
 import Profile from "./components/Profile_Page/Profile";
@@ -13,6 +18,13 @@ import { CompareCompany } from "./components/CompanySection/CompareCompany";
 import { DiscoverCompanies } from "./components/CompanySection/DiscoverCompanies";
 import { GdforEmp } from "./components/GdforEmployers/GdforEmp";
 import { Postjob } from "./components/Postjob/Postjob";
+
+// import PostJobPage from "./components/Postjob/Postjob";
+
+// import PostJobPage from "./components/Postjob/Postjob";
+// import PostJobPage from './components/JobsListPage/pages/PostJobPage'; // ✅ new component
+
+
 import { CompanyDetails } from "./components/companyOverview/companyOverview";
 import { AddCompany } from "./components/company/AddCompany";
 import { PromptForm } from "./components/AIGenerator/PromptForm";
@@ -33,9 +45,12 @@ function App() {
         <Route exact path="/Profile" component={Profile} />
         <Route exact path="/CompareCompany" component={CompareCompany} />
         <Route exact path="/ShowComparison" component={ShowCompareCompanies} />
+        <Route exact path="/job/:id" component={JobDetailsPage} />
+
         <Route exact path="/jobsList" component={JobsList} />
+
         <Route exact path="/forEmployers" component={GdforEmp} />
-        <Route exact path="/postJob" component={Postjob} />
+        <Route exact path="/postJob" component={Postjob} /> // ✅ Corrected route
 
         <Route exact path="/ai" component={PromptForm} />
         <Route exact path="/addCompany" component={AddCompany} />
