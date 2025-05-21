@@ -37,6 +37,7 @@ function App() {
         <Route exact path="/forEmployers" component={GdforEmp} />
         <Route exact path="/postJob" component={Postjob} />
 
+
         {/* <Route exact path="/ai" component={ExamHr} /> */}
         <Route exact path="/addCompany" component={AddCompany} />
       </Switch>

@@ -22,5 +22,9 @@ public class JobController {
         return ResponseEntity.ok(jobService.addJob(job));
     }
 
+    @GetMapping
+    public ResponseEntity<ApiResponse<?>> getAllJobs(){
+        return  ResponseEntity.ok(jobService.getAllJobs());
+    }
 
 }
