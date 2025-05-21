@@ -1,44 +1,29 @@
-import React from 'react'
+import React from "react";
 import styles from "./After_sign_in_2.module.css";
-import Rdata from './RecentData';
+import { FaStar } from "react-icons/fa";
 
-// import { useEffect } from 'react';
-// var count =0;
-const Recent = () => {
-
-// Rdata.map((i)=>console.log("khb"))
-
-
-return(
-    <>
-{Rdata.map((item)=> (
-    
-        <div className={styles.recent_div1} key={item.id}>
-            <div className={styles.recent_div1_1}>
-                <span className={styles.recent_div1_1_span}>
-                    <img src={item.img} alt="bhj"/>
-                </span>
+const Recent = ({ items }) => {
+  return (
+    <div className={styles.recentItems}>
+      {items && items.length > 0 ? (
+        items.map((item) => (
+          <div key={item.id} className={styles.recentItem}>
+            <img src={item.img} alt={item.company} className={styles.recentImage} />
+            <div className={styles.recentDetails}>
+              <div className={styles.recentRating}>
+                {item.rating} <FaStar className={styles.starIcon} />
+              </div>
+              <h3 className={styles.recentPosition}>{item.position}</h3>
+              <p className={styles.recentCompany}>{item.company}</p>
+              <p className={styles.recentLocation}>{item.location}</p>
             </div>
-            <div className={styles.recent_div1_2}>{item.rating} <span></span></div>
-            <div className={styles.recent_div1_3}>{item.position}</div>
-            <div className={styles.recent_div1_4}>
-                <div>{item.company}</div>
-                <div>{item.location}</div>
-            </div>
-            <div className={styles.recent_div1_5}>
-                <span>
-                    <span>
-                        <i>
-
-                        </i>
-                    </span>
-                </span>
-            </div>
-        </div>
-))};
-    </>
-);
-
+          </div>
+        ))
+      ) : (
+        <p>No recent items available.</p>
+      )}
+    </div>
+  );
 };
 
 export default Recent;

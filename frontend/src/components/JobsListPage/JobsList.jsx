@@ -47,47 +47,48 @@ const InnerNav = styled.div`
         margin: 0 7px;
     }
 `
-export function JobsList(state) {
-    var query;
-    if (state.location.state !== undefined) {
-        query = state.location.state.query;
+export function JobsList({ location }) {
+  const query = location?.state?.query || "";
+  console.log("Query value:", query, typeof query);
+
+  const [list, setList] = useState([]);
+  const [rightShow, setRightShow] = useState({});
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const url = query
+          ? `http://localhost:8080/api/v1/job?q=${encodeURIComponent(query)}`
+          : "http://localhost:8080/api/v1/job";
+        const response = await axios.get(url);
+        console.log("API response:", response.data);
+
+        // Extract the data array and map companyName to company
+        const jobs = Array.isArray(response.data.data)
+          ? response.data.data.map((job) => ({
+              ...job,
+              company: job.companyName || "Unknown Company" // Map companyName to company, with fallback
+            }))
+          : [];
+
+        console.log("Mapped jobs:", jobs);
+        setList(jobs);
+        setRightShow(jobs.length > 0 ? jobs[0] : {});
+      } catch (err) {
+        console.error("API error:", err.message, err.response?.status, err.response?.data);
+        setList([]); // Fallback to empty array on error
+        setRightShow({});
+      }
+    };
+    fetchJobs();
+  }, [query]);
+
+  const handleClick = (id) => {
+    const selectedJob = list.find((elem) => elem.id === id);
+    if (selectedJob) {
+      setRightShow(selectedJob);
     }
-
-    console.log(query);
-
-    const [list, setList] = useState([]);
-    const [rightShow, setRightShow] = useState({})
-    useEffect(() => {
-        if (query === undefined) {
-            axios.get("https://glassdoor-clone-server.herokuapp.com/jobList").then(({ data }) => {
-                console.log('res:', data);
-                setList(data)
-                setRightShow(data[0])
-            }).catch((err) => {
-                console.log('err:', err)
-
-            })
-        }
-        else {
-            axios.get(`https://glassdoor-clone-server.herokuapp.com/jobList?q=${query}`).then(({ data }) => {
-                console.log('res:', data);
-                setList(data)
-                setRightShow(data[0])
-            }).catch((err) => {
-                console.log('err:', err)
-
-            })
-        }
-    }, [query])
-
-    const handleClick = (id) => {
-        for (let elem of list) {
-            if (elem.id === id) {
-                setRightShow(elem);
-                return;
-            }
-        }
-    }
+  };
     return (
         <>
             <Navbar />

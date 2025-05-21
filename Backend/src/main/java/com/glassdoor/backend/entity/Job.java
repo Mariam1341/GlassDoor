@@ -16,10 +16,13 @@ public class Job {
     private String id;
 
     private String companyName;
+    private String imgUrl;
+    private String jobProfile;
+
     private String location;
     private String salaryRange;
     private String prerequisite;
-
+    private float rating;
 
 
 }

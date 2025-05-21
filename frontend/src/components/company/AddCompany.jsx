@@ -12,7 +12,7 @@ export const AddCompany = () => {
     status: "",
     companyType: "",
     ceo: "",
-    brief:"sdfghjkjfdsdfghjkl",
+    brief:"",
     logo: "",
  
   });
