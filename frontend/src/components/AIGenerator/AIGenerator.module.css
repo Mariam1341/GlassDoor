@@ -1,0 +1,64 @@
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f7fdf9;
+  border: 1px solid #d0eadd;
+  border-radius: 10px;
+  font-size:20px;
+}
+
+.title {
+  text-align: center;
+  color: #0caa41;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #0caa41;
+}
+
+textarea {
+  padding: 12px;
+  font-size: 20px;
+  border: 1px solid #c9e6d6;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+.btn {
+  background-color: #0caa41;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size:20px;
+}
+
+.btn:hover {
+  background-color: #089036;
+}
+
+.examBox {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #d0eadd;
+  border-radius: 8px;
+}
+
+.examContent {
+  white-space: pre-wrap;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+}
