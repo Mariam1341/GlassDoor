@@ -9,6 +9,7 @@ import java.util.List;
 
 @Builder
 @NoArgsConstructor
+
 @AllArgsConstructor
 @Data
 @Document(collection = "job_applications")
