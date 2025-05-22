@@ -3,6 +3,7 @@ package com.glassdoor.backend.controller;
 
 import com.glassdoor.backend.dto.UserDTO;
 import com.glassdoor.backend.dto.common.ApiResponse;
+import com.glassdoor.backend.entity.User;
 import com.glassdoor.backend.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,13 @@ public class UserController {
             @Valid @RequestBody UserDTO request) {
         String token = authHeader.replace("Bearer ", "");
         return ResponseEntity.ok(userService.updateUser(token, request));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<User> getCurrentUser() {
+        return userService.getCurrentUser()
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(401).build());
     }
 
 

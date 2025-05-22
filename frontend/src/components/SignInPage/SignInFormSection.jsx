@@ -1,13 +1,14 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useHistory, Link } from "react-router-dom";
-import { ModalPage } from '../Modal/Modal';
+import { useHistory } from "react-router-dom";
+import { ModalPage } from "../Modal/Modal";
+import { AuthContext } from "../../context/AuthContext";
 
 const SignInCont = styled.div`
-  background: url(${"https://www.glassdoor.com/app/static/img/home/heroLaptop.jpg?v=674d79pgbp"});
+  background: url("https://www.glassdoor.com/app/static/img/home/heroLaptop.jpg?v=674d79pgbp");
   height: 590px;
   color: white;
   display: flex;
@@ -59,12 +60,10 @@ const SignInCont = styled.div`
     font-weight: bold;
     font-size: 15px;
   }
-
   & > div > div > button > div > div {
     position: absolute;
     left: 15px;
   }
-
   & > div > div {
     width: 500px;
     margin: auto;
@@ -82,101 +81,71 @@ const SignInCont = styled.div`
     align-items: center;
     justify-content: center;
   }
-`
+`;
 
 export function SignInFormSection() {
-  const [userData, setUserData] = useState(null);
   const [loginData, setLoginData] = useState({ email: "", password: "", username: "" });
+  const { login } = useContext(AuthContext);
   const history = useHistory();
   const [modalStatus, setModalStatus] = useState({
     isOpen: false,
-    messege: ""
+    messege: "",
   });
+  const [isRegistered, setIsRegistered] = useState("none");
+  const [isInvalid, setIsInvalid] = useState("none");
+  const [isSigningIn, setIsSigningIn] = useState(true);
 
   const handleHideModal = () => {
     setTimeout(() => {
       setModalStatus({ ...modalStatus, isOpen: false, messege: "" });
-    }, 3000)
-  }
+    }, 3000);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
-  }
-
-  const postData = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:8080/api/v1/auth/register", loginData)
-      .then(({ data }) => {
-        setModalStatus({ ...modalStatus, isOpen: true, messege: "Successfully Registered!" });
-        handleHideModal();
-        setIsRegistered("block");
-        setIsInvalid("none");
-        setLoginData({ email: "", password: "", name: "" });
-        console.log(data);
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          console.log("Token saved:", data.token);
-        }
-      })
-      .catch((err) => {
-        console.log("err:", err);
-        setIsInvalid("block");
-      });
   };
 
-  const handleLogin = (e) => {
+  const postData = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8080/api/v1/auth/authenticate", loginData)
-      .then(({ data }) => {
-        
-        console.log("Login Successful:", data);
+    try {
+      const { data } = await axios.post("http://localhost:8080/api/v1/auth/register", loginData);
+      setModalStatus({ isOpen: true, messege: "Successfully Registered!" });
+      handleHideModal();
+      setIsRegistered("block");
+      setIsInvalid("none");
+      setLoginData({ email: "", password: "", username: "" });
+      console.log("Registration data:", data);
+      if (data.token) {
         localStorage.setItem("token", data.token);
-        // history.push("/Dashboard");
-      })
-      .catch((err) => {
-        console.log("Login Error:", err);
-        setIsInvalid("block");
+        login(data.token); // Update AuthContext
+        history.push(data.role === "JOB_SEEKER" ? "/dashboard" : "/co-dashboard");
+      }
+    } catch (err) {
+      console.error("Registration error:", err);
+      setIsInvalid("block");
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("http://localhost:8080/api/v1/auth/authenticate", loginData);
+      console.log("Login Successful:", data);
+      localStorage.setItem("token", data.token);
+      login(data.token); // Update AuthContext
+      // Fetch user profile to get role
+      const response = await axios.get("http://localhost:8080/api/v1/user/me", {
+        headers: { Authorization: `Bearer ${data.token}` },
       });
-      const fetchProfile = async () => {
-              const token = localStorage.getItem("token");
-              try {
-                  const response = await axios.get("http://localhost:3000/api/v1/user/profile", {
-                  headers: {
-                      Authorization: `Bearer ${token}`,
-                  },
-                  });
-      
-                  const user = response.data.data;
-                  
-
-                  console.log(user.role)
-                  if(user.role == 'JOB_SEEKER'){
-                    
-                    history.push("/Dashboard");
-                  }else{
-                    // history.push("/comapnyDashboard");
-                  }   
-                  console.log("User Data:", response.data.data);
-                  
-              } catch (err) {
-               
-                  console.error(err);
-              }
-              };
-      
-              fetchProfile();
-
-                 
-}
-          
-  
-
-  const [isRegistered, setIsRegistered] = useState("none");
-  const [isInValid, setIsInvalid] = useState("none");
-  const [isSigningIn, setIsSigningIn] = useState(true);
+      const user = response.data;
+      console.log("User Data:", user);
+      history.push(user.role === "JOB_SEEKER" ? "/dashboard" : "/co-dashboard");
+    } catch (err) {
+      console.error("Login Error:", err);
+      setIsInvalid("block");
+    }
+  };
 
   return (
     <>

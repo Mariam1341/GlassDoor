@@ -5,6 +5,7 @@ import com.glassdoor.backend.dto.common.ApiResponse;
 import com.glassdoor.backend.entity.User;
 import com.glassdoor.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,6 +35,12 @@ public class UserService implements UserDetailsService {
 
         return user.get();
     }
+
+    public Optional<User> getCurrentUser() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByEmail(email);
+    }
+
     private UserDTO convertToDTO(User user) {
         return UserDTO.builder()
 //                .id(user.getId())

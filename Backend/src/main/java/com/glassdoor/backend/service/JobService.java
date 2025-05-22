@@ -2,10 +2,14 @@ package com.glassdoor.backend.service;
 
 import com.glassdoor.backend.dto.common.ApiResponse;
 import com.glassdoor.backend.entity.Job;
+import com.glassdoor.backend.entity.User;
 import com.glassdoor.backend.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 import java.util.List;
 
@@ -15,6 +19,9 @@ public class JobService {
 
     @Autowired
     private JobRepository jobRepository;
+
+    @Autowired
+    private UserService userService;
 
     public ApiResponse<Job>  addJob(Job job){
         jobRepository.save(job);
@@ -29,6 +36,23 @@ public class JobService {
     public ApiResponse<List<Job>> getAllJobs() {
         List<Job> list = jobRepository.findAll();
         return new ApiResponse<>(true, "Jobs fetched", list);
+    }
+
+    public Job postJob(Job job) {
+        User currentUser = userService.getCurrentUser()
+                .orElseThrow(() -> new AccessDeniedException("User not authenticated"));
+        if (!"RECRUITER".equals(currentUser.getRole())) {
+            throw new AccessDeniedException("Only recruiters can post jobs");
+        }
+        job.setPostedBy(currentUser.getId());
+        job.setCompanyId(currentUser.getProfile().getCompanyId());
+        job.setActive(true);
+        job.setPostedDate(LocalDateTime.now());
+        return jobRepository.save(job);
+    }
+
+    public List<Job> getSuggestedJobs(List<String> skills) {
+        return jobRepository.findByRequiredSkillsIn(skills);
     }
 
 }
