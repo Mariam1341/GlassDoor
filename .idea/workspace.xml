@@ -5,16 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb14b2b0-31db-429d-b80a-29e846ca88db" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Backend/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/controller/CompanyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/controller/CompanyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/dto/CompanyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/dto/CompanyDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/entity/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/entity/Company.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/service/CompanyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/service/CompanyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/controller/JobApplicationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/entity/JobApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/repository/JobApplicationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/src/main/java/com/glassdoor/backend/service/JobApplicationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/New_mix.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/New_mix.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/RecentData.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/RecentData.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/Recent_mix.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/Recent_mix.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/Suggest.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/After_Sign_In/Suggest.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,23 +24,28 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2xHgksI6Y63gEAVvrMGXuSD842A" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Peter",
-    "ignore.virus.scanning.warn.message": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Mayvel&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;JAVA&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="eb14b2b0-31db-429d-b80a-29e846ca88db" name="Changes" comment="" />
