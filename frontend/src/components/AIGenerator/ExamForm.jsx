@@ -2,7 +2,7 @@ import React, { useState , useEffect} from 'react';
 import styles from "./ExamForm.module.css";
 
 
-export const ExamForm = ({ examDataString }) => {
+export const ExamForm = ({ examDataString , jobId}) => {
   const [answers, setAnswers] = useState({});
   const [examData, setExamData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -44,7 +44,7 @@ export const ExamForm = ({ examDataString }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const jobId = "682d06d8d3d3f919e069be88"; // Hardcoded for now
+      // const jobId = "682e3f65b559643442716e86"; // Hardcoded for now
       const result = await saveExam(examData, jobId);
       console.log('Exam saved successfully:', result);
     } catch (error) {

@@ -2,54 +2,34 @@ package com.glassdoor.backend.controller;
 
 import com.glassdoor.backend.dto.common.ApiResponse;
 import com.glassdoor.backend.entity.CandidateApplication;
-import com.glassdoor.backend.repository.CandidateApplicationRepository;
-import com.glassdoor.backend.service.JwtService;
+import com.glassdoor.backend.service.CandidateApplicationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/candidate")
 @RequiredArgsConstructor
 public class CandidateApplicationController {
-
-    private final CandidateApplicationRepository applicationRepository;
-    private final JwtService jwtService;
+    @Autowired
+    private CandidateApplicationService candidateApplicationService;
 
     @PostMapping("/apply")
     public ResponseEntity<ApiResponse<?>> applyToJob(
             @RequestHeader("Authorization") String authHeader,
             @RequestBody Map<String, String> request) {
 
-        String token = authHeader.replace("Bearer ", "");
-        String email = jwtService.extractUserName(token);
-        String jobId = request.get("jobId");
-
-        // Check if already applied
-        boolean alreadyApplied = applicationRepository
-                .findByJobIdAndCandidateEmail(jobId, email)
-                .isPresent();
-
-        if (alreadyApplied) {
-            throw new RuntimeException("You already applied to this job.");
-        }
-
-        CandidateApplication application = CandidateApplication.builder()
-                .jobId(jobId)
-                .candidateEmail(email)
-                .hasTakenExam(false)
-                .build();
-
-        applicationRepository.save(application);
-        System.out.println("Received jobId = " + jobId + " for user " + email);
-
-        return ResponseEntity.ok(
-                ApiResponse.builder()
-                        .success(true)
-                        .message("Applied successfully.")
-                        .build()
-        );
+        return ResponseEntity.ok(candidateApplicationService.applyToJob(authHeader, request));
     }
+    @GetMapping("/results/{jobId}")
+    public ResponseEntity<ApiResponse<List<CandidateApplication>>> getSortedResults(
+            @PathVariable String jobId,
+            @RequestHeader("Authorization") String authHeader) {
+        return ResponseEntity.ok(candidateApplicationService.getResults(jobId, authHeader));
+    }
+
 }

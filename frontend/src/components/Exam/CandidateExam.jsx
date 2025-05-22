@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 export const CandidateExam = () => {
-  const { jobId } = useParams(); // Get job ID from URL
+  const { jobId } = useParams(); 
   const [exam, setExam] = useState(null);
   const [answers, setAnswers] = useState({});
   const [score, setScore] = useState(null);
@@ -21,7 +21,7 @@ export const CandidateExam = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setExam(res.data);
+        setExam(res.data.data);
         setLoading(false);
       } catch (err) {
         setError("Failed to load exam or you are not allowed.");
@@ -53,7 +53,12 @@ export const CandidateExam = () => {
           },
         }
       );
-      setScore(res.data); // You may adjust this if backend returns number only
+      setScore(res.data.data); 
+      console.log(res.data.data)
+      if (!res.data.success) {
+      console.error(res.data.message);
+      setError(res.data.message);
+}
     } catch (err) {
       console.error(err);
       setError("Failed to submit your exam.");
