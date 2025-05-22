@@ -14,6 +14,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Data
 @Document(collection = "users")
 public class User implements UserDetails {
@@ -23,17 +25,8 @@ public class User implements UserDetails {
     private String email;
     private String password;
 //    @Enumerated(EnumType.STRING)
-    private String role;
-    private Profile profile;
 
-    @Data
-    public static class Profile {
-        private String firstName;
-        private String lastName;
-        private List<String> skills; // For job seekers
-        private String resumeUrl; // For job seekers
-        private String companyId; // For recruiters
-    }
+    private String role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

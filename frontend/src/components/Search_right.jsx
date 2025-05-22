@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './SearchRight.module.css';
-import { useState } from 'react'
+import { useState } from 'react';
 import { ModalPage } from './Modal/Modal';
+import axios from 'axios';
 
-const SearchRight = ({ company, jobProfile, location, salaryRange, btnStatus }) => {
-
+const SearchRight = ({ company, jobProfile, location, salaryRange, btnStatus, jobId }) => {
     const [btnTag, setBtnTag] = useState(btnStatus);
     const [modalStatus, setModalStatus] = useState({
         isOpen: false,
@@ -14,20 +14,48 @@ const SearchRight = ({ company, jobProfile, location, salaryRange, btnStatus }) 
     const handleHideModal = () => {
         setTimeout(() => {
             setModalStatus({ ...modalStatus, isOpen: false, messege: "" });
-        }, 3000)
-    }
+        }, 3000);
+    };
 
-    const handleApply = () => {
+    const handleApply = async () => {
         if (btnTag === "Applied") {
             setModalStatus({ ...modalStatus, isOpen: true, messege: "You have already applied for this job!" });
             handleHideModal();
             return;
         }
 
-        setBtnTag("Applied");
-        setModalStatus({ ...modalStatus, isOpen: true, messege: "Successfully applied for this job!" });
-        handleHideModal();
-    }
+        try {
+            // Replace with actual user data (e.g., from context, auth, or form)
+            const userId = "664d3e89a8f678abc1239876"; // Placeholder: Replace with actual user ID
+            const jobApplication = {
+                name: "John Doe", // Replace with actual user name
+                email: "john.doe@example.com", // Replace with actual user email
+                phone: "123-456-7890", // Replace with actual user phone
+                qualification: "Bachelor's Degree", // Replace with actual qualification
+                resumeLink: "https://example.com/resume.pdf", // Replace with actual resume link
+                status: "Applied",
+                skills: ["JavaScript", "React", "Node.js"], // Replace with actual skills
+                jobId: "682f5025541fe7ac32dc1b80", // From props
+                userId: userId // From auth/context
+            };
+
+            const response = await axios.post("http://localhost:8080/api/v1/job-applications", jobApplication, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.status === 200) {
+                setBtnTag("Applied");
+                setModalStatus({ ...modalStatus, isOpen: true, messege: "Successfully applied for this job!" });
+                handleHideModal();
+            }
+        } catch (error) {
+            console.error("Error applying for job:", error);
+            setModalStatus({ ...modalStatus, isOpen: true, messege: "Failed to apply for this job. Please try again." });
+            handleHideModal();
+        }
+    };
 
     return (
         <>
@@ -57,30 +85,27 @@ const SearchRight = ({ company, jobProfile, location, salaryRange, btnStatus }) 
                         <div className={styles.div_1_1_1_2}>
                             <div>
                                 <div>
+                                    <button onClick={handleApply}>
+                                        <i></i>
+                                        <span>{btnTag}</span>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button>
+                                        <span>
+                                            <svg className="SVGInline-svg save-svg css-zve8bc-svg css-lddn1u-svg e1prsu2a0-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.11l.66-.65a5.56 5.56 0 017.71.19 5.63 5.63 0 010 7.92L12 21l-8.37-8.43a5.63 5.63 0 010-7.92 5.56 5.56 0 017.71-.19zm7.66 6.75a4.6 4.6 0 00-6.49-6.51L12 6.53l-1.17-1.18a4.6 4.6 0 10-6.49 6.51L12 19.58z" fill="currentColor" fillRule="evenodd"></path></svg>
+                                        </span>
+                                        <span>Save</span>
+                                    </button>
+                                </div>
+                                <div>
                                     <div>
-                                        <button onClick={handleApply}>
-                                            <i></i>
-                                            <span>{btnTag}</span>
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button>
-                                            <span>
-                                                <svg className="SVGInline-svg save-svg css-zve8bc-svg css-lddn1u-svg e1prsu2a0-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.11l.66-.65a5.56 5.56 0 017.71.19 5.63 5.63 0 010 7.92L12 21l-8.37-8.43a5.63 5.63 0 010-7.92 5.56 5.56 0 017.71-.19zm7.66 6.75a4.6 4.6 0 00-6.49-6.51L12 6.53l-1.17-1.18a4.6 4.6 0 10-6.49 6.51L12 19.58z" fill="currentColor" fillRule="evenodd"></path></svg>
-                                            </span>
-                                            <span>Save</span>
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <span>
-                                                <svg className="SVGInline-svg css-1cqi1eb-svg e1p6mryr0-svg" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36"><defs><path id="prefix__aMoreDropdown" d="M7.8 20.8a2.8 2.8 0 110-5.6 2.8 2.8 0 010 5.6zm10.2 0a2.8 2.8 0 110-5.6 2.8 2.8 0 010 5.6zm10.2 0a2.8 2.8 0 110-5.6 2.8 2.8 0 010 5.6z"></path></defs><g fill="none" fillRule="evenodd"><mask id="prefix__bMoreDropdown" fill="#fff"><use xlinkHref="#prefix__aMoreDropdown"></use></mask><use fill="#1861bf" xlinkHref="#prefix__aMoreDropdown"></use><g mask="url(#prefix__bMoreDropdown)"><path d="M0 0h36v36H0z"></path></g></g></svg>
-                                            </span>
-                                            <span>More</span>
-                                        </div>
+                                        <span>
+                                            <svg className="SVGInline-svg css-1cqi1eb-svg e1p6mryr0-svg" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36"><defs><path id="prefix__aMoreDropdown" d="M7.8 20.8a2.8 2.8 0 110-5.6 2.8 2.8 0 010 5.6zm10.2 0a2.8 2.8 0 110-5.6 2.8 2.8 0 010 5.6zm10.2 0a2.8 2.8 0 110-5.6 2.8 2.8 0 010 5.6z"></path></defs><g fill="none" fillRule="evenodd"><mask id="prefix__bMoreDropdown" fill="#fff"><use xlinkHref="#prefix__aMoreDropdown"></use></mask><use fill="#1861bf" xlinkHref="#prefix__aMoreDropdown"></use><g mask="url(#prefix__bMoreDropdown)"><path d="M0 0h36v36H0z"></path></g></g></svg>
+                                        </span>
+                                        <span>More</span>
                                     </div>
                                 </div>
-                                <div className={styles.afterPop}></div>
                             </div>
                         </div>
                     </div>
@@ -164,7 +189,7 @@ const SearchRight = ({ company, jobProfile, location, salaryRange, btnStatus }) 
                 <div>
                     <div>
                         ₹1,62,000
-                        <span>&nbsp;/mo (est.)</span>
+                        <span> /mo (est.)</span>
                     </div>
                     <div className={styles.rightLines}>
                         <div></div>
@@ -172,7 +197,7 @@ const SearchRight = ({ company, jobProfile, location, salaryRange, btnStatus }) 
                         <div>
                             <span>
                                 ₹1L
-                                <span>&nbsp;/mo</span>
+                                <span> /mo</span>
                             </span>
                             <span>₹2L</span>
                         </div>
@@ -182,7 +207,6 @@ const SearchRight = ({ company, jobProfile, location, salaryRange, btnStatus }) 
             </div>
         </>
     );
-
 };
 
 export default SearchRight;

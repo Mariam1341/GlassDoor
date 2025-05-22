@@ -5,7 +5,6 @@ import com.glassdoor.backend.dto.common.ApiResponse;
 import com.glassdoor.backend.entity.User;
 import com.glassdoor.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,12 +34,6 @@ public class UserService implements UserDetailsService {
 
         return user.get();
     }
-
-    public Optional<User> getCurrentUser() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return userRepository.findByEmail(email);
-    }
-
     private UserDTO convertToDTO(User user) {
         return UserDTO.builder()
 //                .id(user.getId())
@@ -66,57 +59,20 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    public ApiResponse<User> updateUserProfile(String token, User userUpdate) {
-        // Extract email from token to identify the user
-        String email = jwtService.extractUserName(token);
-        User existingUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    public ApiResponse<UserDTO> updateUser(String token, UserDTO request) {
+       var user = getUser(token);
 
-        // Update top-level user fields (excluding id and role for security)
-        if (userUpdate.getName() != null) {
-            existingUser.setName(userUpdate.getName());
-        }
-        if (userUpdate.getEmail() != null) {
-            existingUser.setEmail(userUpdate.getEmail());
-        }
-        if (userUpdate.getPassword() != null && !userUpdate.getPassword().isEmpty()) {
-            existingUser.setPassword(userUpdate.getPassword()); // Assume password is hashed by the controller
-        }
+        // data to update
+        user.setName(request.getUserName());
 
-        // Update profile fields
-        if (userUpdate.getProfile() != null) {
-            // Initialize profile if null
-            if (existingUser.getProfile() == null) {
-                existingUser.setProfile(new User.Profile());
-            }
+        userRepository.save(user);
 
-            User.Profile existingProfile = existingUser.getProfile();
-            User.Profile profileUpdate = userUpdate.getProfile();
+        UserDTO dto = convertToDTO(user);
 
-            if (profileUpdate.getFirstName() != null) {
-                existingProfile.setFirstName(profileUpdate.getFirstName());
-            }
-            if (profileUpdate.getLastName() != null) {
-                existingProfile.setLastName(profileUpdate.getLastName());
-            }
-            if (profileUpdate.getSkills() != null) {
-                existingProfile.setSkills(profileUpdate.getSkills());
-            }
-            if (profileUpdate.getResumeUrl() != null) {
-                existingProfile.setResumeUrl(profileUpdate.getResumeUrl());
-            }
-            if (profileUpdate.getCompanyId() != null) {
-                existingProfile.setCompanyId(profileUpdate.getCompanyId());
-            }
-        }
-
-        // Save the updated user to the database
-        User updatedUser = userRepository.save(existingUser);
-
-        return ApiResponse.<User>builder()
+        return ApiResponse.<UserDTO>builder()
                 .success(true)
-                .message("User profile updated successfully")
-                .data(updatedUser)
+                .message("User updated successfully")
+                .data(dto)
                 .build();
     }
 }
