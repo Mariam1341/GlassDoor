@@ -26,6 +26,7 @@ public class Company {
     private String createdBy;
     private String ceo;
     private String logo;
+
     private double rating;
     private String brief;
 }

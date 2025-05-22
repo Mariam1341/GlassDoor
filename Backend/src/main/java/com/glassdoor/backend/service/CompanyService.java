@@ -51,6 +51,7 @@ public class CompanyService {
     public ApiResponse<CompanyDTO> updateCompany(String id, CompanyDTO dto) {
         Company company = companyRepository.findById(id).orElseThrow(() -> new RuntimeException("Company not found"));
 
+
         company.setName(dto.getName());
         company.setWebsite(dto.getWebsite());
         company.setTotalEmployee(dto.getTotalEmployee());
@@ -63,6 +64,8 @@ public class CompanyService {
         company.setLogo(dto.getLogo());
         company.setRating(dto.getRating());
         company.setBrief(dto.getBrief());
+
+
 
         companyRepository.save(company);
         return new ApiResponse<>(true, "Company updated", convertToDTO(company));
@@ -109,6 +112,8 @@ public class CompanyService {
                 .ceo(dto.getCeo())
                 .logo(dto.getLogo())
                 .rating(dto.getRating())
+                .brief(dto.getBrief())
+
                 .build();
     }
 
@@ -127,6 +132,8 @@ public class CompanyService {
                 .ceo(company.getCeo())
                 .logo(company.getLogo())
                 .rating(company.getRating())
+                .brief(company.getBrief())
+
                 .build();
     }
 }

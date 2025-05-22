@@ -1,16 +1,18 @@
-import React from 'react'
-import styles from './After_sign_in_2.module.css'
-const Steps = (props) => {
+import React from "react";
+import styles from "./After_sign_in_2.module.css";
+import { FaCheckCircle } from "react-icons/fa";
 
-//const [text, setText] = useState('Follow three companies')
-
-return <>
- <div className={styles.asi2_div}>
-    <p>{props.t}</p>
-    <button>Get Started</button>
-</div>
-
-</>
+const Steps = ({ text, isCompleted }) => {
+  return (
+    <div className={`${styles.stepItem} ${isCompleted ? styles.completed : ""}`}>
+      <span>{text}</span>
+      {isCompleted ? (
+        <FaCheckCircle className={styles.checkIcon} />
+      ) : (
+        <button className={styles.stepButton}>Get Started</button>
+      )}
+    </div>
+  );
 };
 
 export default Steps;

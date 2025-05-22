@@ -23,6 +23,7 @@ public class JobController {
     }
 
 
+
     @PostMapping("/{jobId}/assign-exam")
     public ResponseEntity<?> assignExamToJob(
             @PathVariable String jobId,
@@ -30,6 +31,13 @@ public class JobController {
     ) {
         jobService.assignExamToJob(jobId, examId);
         return ResponseEntity.ok("Exam assigned to job successfully.");
+    }
+
+
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<?>> getAllJobs(){
+        return  ResponseEntity.ok(jobService.getAllJobs());
     }
 
 

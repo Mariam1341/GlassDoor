@@ -52,9 +52,11 @@ public class GeminiAIService {
             if (candidates != null && !candidates.isEmpty()) {
                 var content = (Map<?, ?>) ((Map<?, ?>) candidates.get(0)).get("content");
                 var parts = (java.util.List<?>) content.get("parts");
+
                 Map<?, ?> part = (Map<?, ?>) parts.get(0);
                 String examJson = part.get("text").toString();
-                return examJson; // ✅ return the actual JSON string
+                return examJson;
+
 
             }
 
