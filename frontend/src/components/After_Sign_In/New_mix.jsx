@@ -16,16 +16,15 @@ const SignIn3mix = () => {
             p="Knowing where you stand in terms of compensation compared to it’s time to ask for a raise..."
             btn="Read the Blog"
           />
-          <SignIn3
-            img={b2}  h4="Do Race & Gender Play a Role in Salary Negotiations? A New Study Says Yes"
+          <SignIn3  h4="Do Race & Gender Play a Role in Salary Negotiations? A New Study Says Yes"
             p="Making the case for a promotion or raise is a nerve-wracking process for any employee, but is it a fair playing field..."
             btn="Read Blog Post"
           />
-          <SignIn3
-            img={b3}    h4="Glassdoor's Employees' Choice Awards 2024 and Best Employee Award"
+          <SignIn3   h4="Glassdoor's Employees' Choice Awards 2024 and Best Employee Award"
             p="Glassdoor's annual Employees' Choice Awards honor the Best Places to Work across North America and parts of Europe."
-            btn="See the 2024 List" */}
+            btn="See the 2024 List" 
           />
+          */}
         </div>
       </div>
     </>

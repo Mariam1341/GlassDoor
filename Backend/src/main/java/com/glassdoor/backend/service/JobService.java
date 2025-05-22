@@ -1,12 +1,13 @@
 package com.glassdoor.backend.service;
 
 import com.glassdoor.backend.dto.common.ApiResponse;
-import com.glassdoor.backend.entity.Company;
 import com.glassdoor.backend.entity.Job;
 import com.glassdoor.backend.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,4 +24,11 @@ public class JobService {
                 .data(job)
                 .build();
     }
+
+
+    public ApiResponse<List<Job>> getAllJobs() {
+        List<Job> list = jobRepository.findAll();
+        return new ApiResponse<>(true, "Jobs fetched", list);
+    }
+
 }
