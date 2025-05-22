@@ -66,20 +66,57 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    public ApiResponse<UserDTO> updateUser(String token, UserDTO request) {
-       var user = getUser(token);
+    public ApiResponse<User> updateUserProfile(String token, User userUpdate) {
+        // Extract email from token to identify the user
+        String email = jwtService.extractUserName(token);
+        User existingUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
 
-        // data to update
-        user.setName(request.getUserName());
+        // Update top-level user fields (excluding id and role for security)
+        if (userUpdate.getName() != null) {
+            existingUser.setName(userUpdate.getName());
+        }
+        if (userUpdate.getEmail() != null) {
+            existingUser.setEmail(userUpdate.getEmail());
+        }
+        if (userUpdate.getPassword() != null && !userUpdate.getPassword().isEmpty()) {
+            existingUser.setPassword(userUpdate.getPassword()); // Assume password is hashed by the controller
+        }
 
-        userRepository.save(user);
+        // Update profile fields
+        if (userUpdate.getProfile() != null) {
+            // Initialize profile if null
+            if (existingUser.getProfile() == null) {
+                existingUser.setProfile(new User.Profile());
+            }
 
-        UserDTO dto = convertToDTO(user);
+            User.Profile existingProfile = existingUser.getProfile();
+            User.Profile profileUpdate = userUpdate.getProfile();
 
-        return ApiResponse.<UserDTO>builder()
+            if (profileUpdate.getFirstName() != null) {
+                existingProfile.setFirstName(profileUpdate.getFirstName());
+            }
+            if (profileUpdate.getLastName() != null) {
+                existingProfile.setLastName(profileUpdate.getLastName());
+            }
+            if (profileUpdate.getSkills() != null) {
+                existingProfile.setSkills(profileUpdate.getSkills());
+            }
+            if (profileUpdate.getResumeUrl() != null) {
+                existingProfile.setResumeUrl(profileUpdate.getResumeUrl());
+            }
+            if (profileUpdate.getCompanyId() != null) {
+                existingProfile.setCompanyId(profileUpdate.getCompanyId());
+            }
+        }
+
+        // Save the updated user to the database
+        User updatedUser = userRepository.save(existingUser);
+
+        return ApiResponse.<User>builder()
                 .success(true)
-                .message("User updated successfully")
-                .data(dto)
+                .message("User profile updated successfully")
+                .data(updatedUser)
                 .build();
     }
 }

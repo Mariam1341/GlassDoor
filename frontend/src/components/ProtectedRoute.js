@@ -14,16 +14,23 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) => {
         if (!user) {
+          console.log("ProtectedRoute: No user, redirecting to /SignIn");
           return <Redirect to="/SignIn" />;
         }
 
-        if (user.role === "JOB_SEEKER" && rest.path !== "/dashboard") {
+        // Allow JOB_SEEKER to access /dashboard and /Profile
+        if (user.role === "JOB_SEEKER" && rest.path !== "/dashboard" && rest.path !== "/Profile") {
+          console.log("ProtectedRoute: JOB_SEEKER redirecting to /dashboard");
           return <Redirect to="/dashboard" />;
         }
-        if (user.role === "RECRUITER" && rest.path !== "/co-dashboard") {
+
+        // Allow RECRUITER to access /co-dashboard and /Profile
+        if (user.role === "RECRUITER" && rest.path !== "/co-dashboard" && rest.path !== "/Profile") {
+          console.log("ProtectedRoute: RECRUITER redirecting to /co-dashboard");
           return <Redirect to="/co-dashboard" />;
         }
 
+        console.log("ProtectedRoute: Rendering component for path", rest.path);
         return <Component {...props} />;
       }}
     />

@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,25 +20,39 @@ public class UserController {
 
     @Autowired
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
         @GetMapping("/profile")
     public ResponseEntity<ApiResponse<?>> getUserProfile(@RequestHeader("Authorization") String authHeader) {
         String token = authHeader.replace("Bearer ", "");
         return ResponseEntity.ok(userService.getUserProfile(token));
     }
-    @PutMapping("/update")
-    public ResponseEntity<ApiResponse<?>> updateUser(
-            @RequestHeader("Authorization") String authHeader,
-            @Valid @RequestBody UserDTO request) {
-        String token = authHeader.replace("Bearer ", "");
-        return ResponseEntity.ok(userService.updateUser(token, request));
-    }
+//    @PutMapping("/update")
+//    public ResponseEntity<ApiResponse<?>> updateUser(
+//            @RequestHeader("Authorization") String authHeader,
+//            @Valid @RequestBody UserDTO request) {
+//        String token = authHeader.replace("Bearer ", "");
+//        return ResponseEntity.ok(userService.updateUser(token, request));
+//    }
 
     @GetMapping("/me")
     public ResponseEntity<User> getCurrentUser() {
         return userService.getCurrentUser()
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(401).build());
+    }
+
+    @PutMapping("/profile")
+    public ResponseEntity<ApiResponse<User>> updateUserProfile(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @RequestBody User userUpdate) {
+        String token = authorizationHeader.replace("Bearer ", "");
+        // Hash the password if provided
+        if (userUpdate.getPassword() != null && !userUpdate.getPassword().isEmpty()) {
+            userUpdate.setPassword(passwordEncoder.encode(userUpdate.getPassword()));
+        }
+        ApiResponse<User> response = userService.updateUserProfile(token, userUpdate);
+        return ResponseEntity.ok(response);
     }
 
 

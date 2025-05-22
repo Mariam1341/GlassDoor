@@ -6,6 +6,7 @@ import com.glassdoor.backend.entity.CandidateApplication;
 import com.glassdoor.backend.entity.Company;
 import com.glassdoor.backend.entity.Job;
 import com.glassdoor.backend.entity.User;
+import com.glassdoor.backend.repository.CandidateApplicationRepository;
 import com.glassdoor.backend.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
