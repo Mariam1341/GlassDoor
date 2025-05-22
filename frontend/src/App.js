@@ -16,8 +16,12 @@ import { Postjob } from "./components/Postjob/Postjob";
 import { CompanyDetails } from "./components/companyOverview/companyOverview";
 import { AddCompany } from "./components/company/AddCompany";
 import { PromptForm } from "./components/AIGenerator/PromptForm";
-// import {ExamHr} from "./components/AIGenerator/ExamHr"
+import {CandidateExam} from "./components/Exam/CandidateExam";
+import { ExamHr } from './components/AIGenerator/ExamHr';
+
+
 function App() {
+
   return (
     <div className="App">
       <Switch>
@@ -36,9 +40,18 @@ function App() {
         <Route exact path="/jobsList" component={JobsList} />
         <Route exact path="/forEmployers" component={GdforEmp} />
         <Route exact path="/postJob" component={Postjob} />
+<<<<<<< HEAD
+        
+
+        <Route path="/candidate/exam/:jobId" component={CandidateExam} />
+
+
+        <Route exact path="/ai" component={ExamHr} />
+=======
 
 
         {/* <Route exact path="/ai" component={ExamHr} /> */}
+>>>>>>> 9b8b94f929cc301e5de06db498cb18f19cd63b41
         <Route exact path="/addCompany" component={AddCompany} />
       </Switch>
     </div>
