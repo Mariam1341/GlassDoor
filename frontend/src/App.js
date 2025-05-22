@@ -17,10 +17,13 @@ import { Postjob } from "./components/Postjob/Postjob";
 import { CompanyDetails } from "./components/companyOverview/companyOverview";
 import { AddCompany } from "./components/company/AddCompany";
 import { PromptForm } from "./components/AIGenerator/PromptForm";
+import { CandidateExam } from "./components/Exam/CandidateExam";
+import { ExamHr } from './components/AIGenerator/ExamHr';
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
+
   return (
     <AuthProvider>
       <div className="App">
@@ -42,6 +45,10 @@ function App() {
           <ProtectedRoute exact path="/postJob" component={Postjob} />
           <ProtectedRoute exact path="/addCompany" component={AddCompany} />
           {/* <Route exact path="/ai" component={ExamHr} /> */}
+          <Route path="/candidate/exam/:jobId" component={CandidateExam} />
+
+
+          <Route exact path="/ai" component={ExamHr} />
         </Switch>
       </div>
     </AuthProvider>
