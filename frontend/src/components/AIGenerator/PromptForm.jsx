@@ -3,39 +3,29 @@ import styles from "./AIGenerator.module.css";
 import { ExamDisplay } from "./ExamDisplay";
 import { ExamForm } from "./ExamForm";
 
-export const PromptForm = ({ job }) => {
+export const PromptForm = () => {
   const [prompt, setPrompt] = useState("");
   const [exam, setExam] = useState("");
 
-  const format = {
-    examTitle: "Your Exam Title",
-    questions: [
+  const formate ={
+    "examTitle": "Your Exam Title",
+    "questions": [
       {
-        questionText: "Question?",
-        options: ["A", "B", "C", "D"],
-        correctAnswer: "Correct Option",
-        explanation: "Short explanation."
+        "questionText": "Question?",
+        "options": ["A", "B", "C", "D"],
+        "correctAnswer": "Correct Option",
+        "explanation": "Short explanation."
       }
     ]
   };
-
-  const inst = "The response should be only valid raw JSON. Do not include markdown, triple backticks, or any explanations. Also don't make any words before or after the JSON. The structure must look like this:";
+  
+  const inst= "The response should be only valid raw JSON. Do not include markdown, triple backticks, or any explanations. The JSON structure must look like this:";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
-
-    const fullPrompt = `
-      Generate a multiple-choice exam based on the following job:
-      Job Title: ${job.title}
-      Job Description: ${job.description}
-      Requirements: ${job.requirements || "N/A"}
-      
-      Additional instructions: ${prompt}
-      
-      ${inst}
-      ${JSON.stringify(format)}
-    `;
+    setPrompt(prompt)
+    let editedPrompt = "Generate a multiple-choice exam based on this prompt" + + prompt+ inst + JSON.stringify(formate )
 
     const res = await fetch("http://localhost:8080/api/ai/generate-exam", {
       method: "POST",
@@ -43,11 +33,12 @@ export const PromptForm = ({ job }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ prompt: fullPrompt }),
+      body: JSON.stringify({ prompt: editedPrompt }),
     });
 
     const data = await res.json();
     setExam(data.data || "No exam returned.");
+    console.log(data.data);
   };
 
   return (
@@ -65,7 +56,8 @@ export const PromptForm = ({ job }) => {
         <button type="submit" className={styles.btn}>Generate Exam</button>
       </form>
 
-      {exam && <ExamForm examDataString={exam} jobId={job.id} />}
+      {exam && <ExamForm Data={exam}  />
+    }
     </div>
   );
 };
