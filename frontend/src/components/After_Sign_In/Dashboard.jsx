@@ -10,9 +10,6 @@ import AfterSignInNav from './AfterSignInNav';
 
 const Dashboard = () => {
 
-    // useEffect(() => {
-    //     window.scrollTo(0, 0)
-    // }, [])
 
     return (
         <>
@@ -24,20 +21,16 @@ const Dashboard = () => {
             </div>
             <div>
                 <div className={styles.after_sign_in_upper_whole}>
-                    <div className={styles.after_sign_in_heading}>
-                        <h2>Job Portal</h2>
-                    </div>
+                    
                     <div className={styles.after_sign_in_upper}>
                         <div>
                             <StepsMix />
                         </div>
                         <div>
-                            <RecentMix />
                             <SuggestMix />
                         </div>
                     </div>
                 </div>
-                <SignIn3mix />
             </div>
             <Footer />
         </>

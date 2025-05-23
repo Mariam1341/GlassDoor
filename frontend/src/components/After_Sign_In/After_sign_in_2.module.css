@@ -1694,3 +1694,347 @@ body {
   font-size: 14px;
   margin: 5px 0;
 }
+/* Root container for the dashboard */
+.dashboardContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f7fa;
+  min-height: calc(100vh - 200px); /* Adjust for navbar and footer */
+}
+
+/* Dashboard header */
+.dashboardHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.dashboardHeader h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a3c34;
+  margin: 0;
+}
+
+.dashboardHeader p {
+  font-size: 18px;
+  color: #6b7280;
+  margin: 10px 0 0;
+}
+
+/* Grid layout for content */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+
+.stepsColumn, .suggestColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Profile card (StepsMix) */
+.profileCard {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  transition: transform 0.2s ease;
+}
+
+.profileCard:hover {
+  transform: translateY(-5px);
+}
+
+.profileHeader {
+  margin-bottom: 24px;
+}
+
+.profileHeader h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a3c34;
+  margin: 0 0 16px;
+}
+
+.profileInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profileAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e5e7eb;
+}
+
+.profileDetails {
+  flex: 1;
+}
+
+.profileDetails h3 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #111827;
+  margin: 0;
+}
+
+.profileButton {
+  display: inline-block;
+  background: #0caa41;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 8px;
+  transition: background 0.2s ease;
+}
+
+.profileButton:hover {
+  background: #099636;
+}
+
+.stepsSection h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a3c34;
+  margin: 0 0 16px;
+}
+
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stepItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #374151;
+}
+
+.stepStatus {
+  font-size: 20px;
+  color: #0caa41;
+}
+
+/* Suggest card (SuggestMix) */
+.suggestCard {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  transition: transform 0.2s ease;
+}
+
+.suggestCard:hover {
+  transform: translateY(-5px);
+}
+
+.suggestHeader {
+  margin-bottom: 24px;
+}
+
+.suggestHeader h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a3c34;
+  margin: 0;
+}
+
+.suggestHeader p {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 8px 0 0;
+}
+
+.loader {
+  text-align: center;
+  font-size: 16px;
+  color: #6b7280;
+  padding: 20px;
+}
+
+.error {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.retryButton {
+  background: #0caa41;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.retryButton:hover {
+  background: #099636;
+}
+
+.suggestList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Job card (Suggest) */
+.jobCard {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 16px;
+  transition: box-shadow 0.2s ease;
+}
+
+.jobCard:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.jobHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.jobLogo {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.jobInfo h3 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #111827;
+  margin: 0;
+}
+
+.jobInfo p {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0;
+}
+
+.favoriteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  transition: transform 0.2s ease;
+}
+
+.favoriteButton:hover {
+  transform: scale(1.2);
+}
+
+.skillsSection {
+  margin-top: 12px;
+}
+
+.matchedSkills {
+  font-size: 14px;
+  color: #0caa41;
+  margin: 4px 0;
+}
+
+.unmatchedSkills {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0;
+}
+
+/* Navbar and responsive nav */
+.navDiv, .navResDiv {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboardContainer {
+    padding: 16px;
+  }
+
+  .dashboardHeader h1 {
+    font-size: 28px;
+  }
+
+  .dashboardHeader p {
+    font-size: 16px;
+  }
+
+  .profileCard, .suggestCard {
+    padding: 16px;
+  }
+
+  .profileHeader h2, .suggestHeader h2 {
+    font-size: 20px;
+  }
+
+  .profileAvatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .profileDetails h3 {
+    font-size: 18px;
+  }
+
+  .jobInfo h3 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboardHeader h1 {
+    font-size: 24px;
+  }
+
+  .dashboardHeader p {
+    font-size: 14px;
+  }
+
+  .profileButton {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .stepItem {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .jobLogo {
+    width: 40px;
+    height: 40px;
+  }
+}

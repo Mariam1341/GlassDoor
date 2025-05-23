@@ -2,10 +2,12 @@ package com.glassdoor.backend.controller;
 
 import com.glassdoor.backend.dto.common.ApiResponse;
 import com.glassdoor.backend.entity.Job;
+import com.glassdoor.backend.entity.User;
 import com.glassdoor.backend.service.JobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,7 +50,10 @@ public class JobController {
     }
 
     @GetMapping("/suggested")
-    public ResponseEntity<List<Job>> getSuggestedJobs(@RequestParam List<String> skills) {
-        return ResponseEntity.ok(jobService.getSuggestedJobs(skills));
+    public ResponseEntity<List<Job>> getSuggestedJobs(@AuthenticationPrincipal User user) {
+        if (user == null || user.getProfile() == null || user.getProfile().getSkills() == null) {
+            return ResponseEntity.badRequest().body(List.of());
+        }
+        return ResponseEntity.ok(jobService.getSuggestedJobs(user.getProfile().getSkills()));
     }
 }

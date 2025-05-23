@@ -1,15 +1,15 @@
-import { Footer } from "../GdforEmployers/Footer";
 import { Header } from "../GdforEmployers/Header";
-import {Postjobbody} from "./Postjobbody";
-import SignIn3mix from '../After_Sign_In/New_mix'
+import { Footer } from "../GdforEmployers/Footer";
+import { Postjobbody } from "./Postjobbody";
 
-export function Postjob(){
-    return (
-        <>
-        <Header/>
-        <Postjobbody/>
-        <SignIn3mix />
-        <Footer/>
-        </>
-    )
+export function Postjob() {
+  return (
+    <div className="postjob-container">
+      <Header />
+      <main>
+        <Postjobbody />
+      </main>
+      <Footer />
+    </div>
+  );
 }

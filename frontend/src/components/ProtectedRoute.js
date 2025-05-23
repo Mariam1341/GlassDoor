@@ -18,19 +18,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
           return <Redirect to="/SignIn" />;
         }
 
-        // Allow JOB_SEEKER to access /dashboard and /Profile
-        if (user.role === "JOB_SEEKER" && rest.path !== "/dashboard" && rest.path !== "/Profile") {
-          console.log("ProtectedRoute: JOB_SEEKER redirecting to /dashboard");
-          return <Redirect to="/dashboard" />;
-        }
-
-        // Allow RECRUITER to access /co-dashboard and /Profile
-        if (user.role === "RECRUITER" && rest.path !== "/co-dashboard" && rest.path !== "/Profile") {
-          console.log("ProtectedRoute: RECRUITER redirecting to /co-dashboard");
-          return <Redirect to="/co-dashboard" />;
-        }
-
-        console.log("ProtectedRoute: Rendering component for path", rest.path);
+        console.log("ProtectedRoute: Rendering component for path", rest.path, "user role:", user.role);
         return <Component {...props} />;
       }}
     />

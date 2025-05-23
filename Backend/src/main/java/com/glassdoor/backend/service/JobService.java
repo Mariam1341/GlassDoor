@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -76,7 +77,13 @@ public class JobService {
     }
 
     public List<Job> getSuggestedJobs(List<String> skills) {
-        return jobRepository.findByRequiredSkillsIn(skills);
+        if (skills == null || skills.isEmpty()) {
+            return List.of();
+        }
+        return jobRepository.findByRequiredSkillsIn(skills)
+                .stream()
+                .filter(Job::isActive)
+                .collect(Collectors.toList());
     }
 
 }

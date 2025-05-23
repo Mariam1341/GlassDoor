@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 import styles from "./After_sign_in_2.module.css";
 
 const StepsMix = () => {
-  const { user } = useContext(AuthContext); // Use AuthContext to get user data
+  const { user } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const history = useHistory();
@@ -24,12 +24,9 @@ const StepsMix = () => {
 
       try {
         const response = await axios.get("http://localhost:8080/api/v1/user/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
         console.log("StepsMix - User data:", response.data);
-        // setUserData(response.data); // No need to set userData, use user from AuthContext
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch profile. Please log in again.");
@@ -77,9 +74,7 @@ const StepsMix = () => {
             <div className={styles.stepsList}>
               <div className={styles.stepItem}>
                 <span>Setup job alert</span>
-                <span className={styles.stepStatus}>
-                  <i className={styles.checkIcon}></i>
-                </span>
+                <span className={styles.stepStatus}>✔</span>
               </div>
               <Steps text="Follow 3 companies" isCompleted={false} />
               <Steps text="Write a review" isCompleted={false} />

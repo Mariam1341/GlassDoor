@@ -9,85 +9,24 @@ const SuggestMix = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Dummy data for fallback
-  const dummyJobs = [
-    {
-      id: 1,
-      title: "Senior Software Engineer",
-      company: "TechCorp",
-      location: "Jaipur, Rajasthan",
-      posted: "3 days ago",
-      isFavorite: false,
-      logo: "https://via.placeholder.com/50?text=TechCorp",
-      skills: ["Java", "Spring", "Docker"],
-    },
-    {
-      id: 2,
-      title: "Data Scientist",
-      company: "DataTech Solutions",
-      location: "Bangalore, Karnataka",
-      posted: "2 days ago",
-      isFavorite: true,
-      logo: "https://via.placeholder.com/50?text=DataTech",
-      skills: ["Python", "SQL", "Machine Learning"],
-    },
-    {
-      id: 3,
-      title: "Product Manager",
-      company: "Innovate Systems",
-      location: "Mumbai, Maharashtra",
-      posted: "5 days ago",
-      isFavorite: false,
-      logo: "https://via.placeholder.com/50?text=Innovate",
-      skills: ["Agile", "Scrum", "Product Management"],
-    },
-    {
-      id: 4,
-      title: "UX Designer",
-      company: "DesignCo",
-      location: "Hyderabad, Telangana",
-      posted: "1 day ago",
-      isFavorite: false,
-      logo: "https://via.placeholder.com/50?text=DesignCo",
-      skills: ["Figma", "UX Design", "Prototyping"],
-    },
-    {
-      id: 5,
-      title: "DevOps Engineer",
-      company: "CloudNet Technologies",
-      location: "Delhi, NCR",
-      posted: "4 days ago",
-      isFavorite: true,
-      logo: "https://via.placeholder.com/50?text=CloudNet",
-      skills: ["AWS", "Docker", "Kubernetes"],
-    },
-    {
-      id: 6,
-      title: "Frontend Developer",
-      company: "WebWorks",
-      location: "Chennai, Tamil Nadu",
-      posted: "6 days ago",
-      isFavorite: false,
-      logo: "https://via.placeholder.com/50?text=WebWorks",
-      skills: ["React", "JavaScript", "CSS"],
-    },
-  ];
-
   const fetchUserSkills = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
       setError("No authentication token found. Please log in.");
-      return;
+      return false;
     }
 
     try {
       const response = await axios.get("http://localhost:8080/api/v1/user/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setUserSkills(response.data.skills || []);
+      const skills = response.data.profile?.skills || [];
+      setUserSkills(skills);
+      return skills;
     } catch (err) {
       console.error("Failed to fetch user skills:", err);
       setError("Failed to fetch user profile.");
+      return false;
     }
   };
 
@@ -95,34 +34,62 @@ const SuggestMix = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       setError("No authentication token found. Please log in.");
-      setSuggestedJobs(dummyJobs);
+      setSuggestedJobs([]);
       setLoading(false);
       return;
     }
 
     try {
-      console.log("Fetching suggested jobs with token:", token);
+      console.log("Fetching suggested jobs");
       const response = await axios.get("http://localhost:8080/api/v1/job/suggested", {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log("API Response:", response.data);
-      const data = Array.isArray(response.data.data) ? response.data.data : [];
-      setSuggestedJobs(data.length > 0 ? data : dummyJobs);
+      const data = Array.isArray(response.data) ? response.data : [];
+      // Map Job entity fields to match Suggest component
+      const mappedJobs = data.map((job) => ({
+        id: job.id,
+        title: job.title,
+        company: job.companyName,
+        location: job.location,
+        posted: formatPostedDate(job.postedDate),
+        isFavorite: job.isFavorite || false,
+        logo: job.imgUrl,
+        skills: job.requiredSkills,
+      }));
+      setSuggestedJobs(mappedJobs);
       setLoading(false);
     } catch (err) {
       const errorMessage = err.response
         ? `Failed to fetch suggested jobs: ${err.response.status} ${err.response.data.message || err.response.statusText}`
         : `Failed to fetch suggested jobs: ${err.message}`;
       setError(errorMessage);
-      setSuggestedJobs(dummyJobs);
+      setSuggestedJobs([]);
       setLoading(false);
       console.error("Fetch error:", err);
     }
   };
 
+  // Format postedDate to "X days ago"
+  const formatPostedDate = (postedDate) => {
+    if (!postedDate) return "Unknown";
+    const posted = new Date(postedDate);
+    const now = new Date();
+    const daysDiff = Math.floor((now - posted) / (1000 * 60 * 60 * 24));
+    return daysDiff === 0 ? "Today" : `${daysDiff} day${daysDiff > 1 ? "s" : ""} ago`;
+  };
+
   useEffect(() => {
-    fetchUserSkills();
-    fetchSuggestedJobs();
+    const loadData = async () => {
+      const skills = await fetchUserSkills();
+      if (skills !== false) {
+        await fetchSuggestedJobs();
+      } else {
+        setSuggestedJobs([]);
+        setLoading(false);
+      }
+    };
+    loadData();
   }, []);
 
   const toggleFavorite = async (jobId) => {
@@ -165,7 +132,7 @@ const SuggestMix = () => {
     <div className={styles.suggestCard}>
       <div className={styles.suggestHeader}>
         <h2>Suggested Jobs</h2>
-        <p>Explore open positions related to your current job title and skills</p>
+        <p>Explore open positions related to your skills</p>
       </div>
       {loading && <div className={styles.loader}>Loading...</div>}
       {error && (
@@ -173,11 +140,16 @@ const SuggestMix = () => {
           {error}
           <button
             className={styles.retryButton}
-            onClick={() => {
+            onClick={async () => {
               setError("");
               setLoading(true);
-              fetchUserSkills();
-              fetchSuggestedJobs();
+              const skills = await fetchUserSkills();
+              if (styles !== false) {
+                await fetchSuggestedJobs();
+              } else {
+                setSuggestedJobs([]);
+                setLoading(false);
+              }
             }}
           >
             Retry
@@ -200,7 +172,7 @@ const SuggestMix = () => {
               );
             })
           ) : (
-            <p>No suggested jobs found.</p>
+            <p>No suggested jobs found matching your skills.</p>
           )}
         </div>
       )}
