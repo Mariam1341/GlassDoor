@@ -94,12 +94,6 @@ export const CandidateExam = () => {
         ))}
         <button type="submit" className={styles.submitBtn}>Submit</button>
       </form>
-
-      {score && (
-        <div className={styles.scoreBlock}>
-          <h3>✅ Your Score: {score}</h3>
-        </div>
-      )}
     </div>
   );
 };

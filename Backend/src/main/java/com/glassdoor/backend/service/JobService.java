@@ -26,6 +26,29 @@ public class JobService {
     }
 
 
+
+
+
+    public void assignExamToJob(String jobId, String examId) {
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+
+        job.setExamId(examId);
+        jobRepository.save(job);
+
+
+        List<CandidateApplication> candidates = applicationRepository.findByJobId(jobId);
+        for (CandidateApplication app : candidates) {
+            app.setHasPendingExam(true);
+            applicationRepository.save(app);
+        }
+        for (CandidateApplication app : candidates) {
+            app.setHasPendingExam(true);
+            applicationRepository.save(app);
+            mailService.sendExamNotification(app.getCandidateEmail(), jobId);
+        }
+
+    }
     public ApiResponse<List<Job>> getAllJobs() {
         List<Job> list = jobRepository.findAll();
         return new ApiResponse<>(true, "Jobs fetched", list);
