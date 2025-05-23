@@ -23,6 +23,7 @@ public class JobService {
 
     private final JobRepository jobRepository;
     private final CandidateApplicationRepository applicationRepository;
+    private final MailService mailService;
 
 
 
@@ -52,9 +53,15 @@ public class JobService {
 
         List<CandidateApplication> candidates = applicationRepository.findByJobId(jobId);
         for (CandidateApplication app : candidates) {
-            app.setHasPendingExam(true); // optional field
+            app.setHasPendingExam(true);
             applicationRepository.save(app);
         }
+        for (CandidateApplication app : candidates) {
+            app.setHasPendingExam(true);
+            applicationRepository.save(app);
+            mailService.sendExamNotification(app.getCandidateEmail(), jobId);
+        }
+
     }
     public ApiResponse<List<Job>> getAllJobs() {
         List<Job> list = jobRepository.findAll();
