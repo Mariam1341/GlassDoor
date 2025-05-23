@@ -6,6 +6,7 @@ import com.glassdoor.backend.entity.CandidateApplication;
 import com.glassdoor.backend.entity.Company;
 import com.glassdoor.backend.entity.Job;
 import com.glassdoor.backend.entity.User;
+import com.glassdoor.backend.repository.CandidateApplicationRepository;
 import com.glassdoor.backend.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class JobService {
 
     private final JobRepository jobRepository;
     private final CandidateApplicationRepository applicationRepository;
+    private final MailService mailService;
 
 
 
@@ -51,9 +53,15 @@ public class JobService {
 
         List<CandidateApplication> candidates = applicationRepository.findByJobId(jobId);
         for (CandidateApplication app : candidates) {
-            app.setHasPendingExam(true); // optional field
+            app.setHasPendingExam(true);
             applicationRepository.save(app);
         }
+        for (CandidateApplication app : candidates) {
+            app.setHasPendingExam(true);
+            applicationRepository.save(app);
+            mailService.sendExamNotification(app.getCandidateEmail(), jobId);
+        }
+
     }
     public ApiResponse<List<Job>> getAllJobs() {
         List<Job> list = jobRepository.findAll();
