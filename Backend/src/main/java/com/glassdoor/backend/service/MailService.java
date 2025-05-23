@@ -13,7 +13,7 @@ public class MailService {
 
     public void sendExamNotification(String to, String jobId) {
         String subject = "You have a new job exam";
-        String link = "http://localhost:3000/exam/" + jobId;
+        String link = "http://localhost:3000/candidate/exam/" + jobId;
         String body = "Dear candidate,\n\nYou have been assigned an exam. Please take it here: " + link + "\n\nGood luck!";
 
         SimpleMailMessage message = new SimpleMailMessage();
