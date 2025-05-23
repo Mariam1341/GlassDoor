@@ -5,7 +5,6 @@ import axios from "axios";
 
 const SuggestMix = () => {
   const [suggestedJobs, setSuggestedJobs] = useState([]);
-  const [userSkills, setUserSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -19,7 +18,6 @@ const SuggestMix = () => {
       posted: "3 days ago",
       isFavorite: false,
       logo: "https://via.placeholder.com/50?text=TechCorp",
-      skills: ["Java", "Spring", "Docker"],
     },
     {
       id: 2,
@@ -29,7 +27,6 @@ const SuggestMix = () => {
       posted: "2 days ago",
       isFavorite: true,
       logo: "https://via.placeholder.com/50?text=DataTech",
-      skills: ["Python", "SQL", "Machine Learning"],
     },
     {
       id: 3,
@@ -39,7 +36,6 @@ const SuggestMix = () => {
       posted: "5 days ago",
       isFavorite: false,
       logo: "https://via.placeholder.com/50?text=Innovate",
-      skills: ["Agile", "Scrum", "Product Management"],
     },
     {
       id: 4,
@@ -49,7 +45,6 @@ const SuggestMix = () => {
       posted: "1 day ago",
       isFavorite: false,
       logo: "https://via.placeholder.com/50?text=DesignCo",
-      skills: ["Figma", "UX Design", "Prototyping"],
     },
     {
       id: 5,
@@ -59,7 +54,6 @@ const SuggestMix = () => {
       posted: "4 days ago",
       isFavorite: true,
       logo: "https://via.placeholder.com/50?text=CloudNet",
-      skills: ["AWS", "Docker", "Kubernetes"],
     },
     {
       id: 6,
@@ -69,27 +63,8 @@ const SuggestMix = () => {
       posted: "6 days ago",
       isFavorite: false,
       logo: "https://via.placeholder.com/50?text=WebWorks",
-      skills: ["React", "JavaScript", "CSS"],
     },
   ];
-
-  const fetchUserSkills = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setError("No authentication token found. Please log in.");
-      return;
-    }
-
-    try {
-      const response = await axios.get("http://localhost:8080/api/v1/user/me", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setUserSkills(response.data.skills || []);
-    } catch (err) {
-      console.error("Failed to fetch user skills:", err);
-      setError("Failed to fetch user profile.");
-    }
-  };
 
   const fetchSuggestedJobs = async () => {
     const token = localStorage.getItem("token");
@@ -102,8 +77,10 @@ const SuggestMix = () => {
 
     try {
       console.log("Fetching suggested jobs with token:", token);
-      const response = await axios.get("http://localhost:8080/api/v1/job/suggested", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axios.get("http://localhost:3000/api/v1/user/suggested-jobs", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       console.log("API Response:", response.data);
       const data = Array.isArray(response.data.data) ? response.data.data : [];
@@ -119,9 +96,8 @@ const SuggestMix = () => {
       console.error("Fetch error:", err);
     }
   };
-
   useEffect(() => {
-    fetchUserSkills();
+
     fetchSuggestedJobs();
   }, []);
 
@@ -135,7 +111,7 @@ const SuggestMix = () => {
     try {
       const currentJob = suggestedJobs.find((j) => j.id === jobId);
       await axios.post(
-        "http://localhost:8080/api/v1/user/favorite-job",
+        "http://localhost:3000/api/v1/user/favorite-job",
         { jobId, enabled: !currentJob.isFavorite },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -151,21 +127,11 @@ const SuggestMix = () => {
     }
   };
 
-  // Compute matched skills for each job
-  const getMatchedSkills = (jobSkills) => {
-    if (!jobSkills || !Array.isArray(jobSkills) || !Array.isArray(userSkills)) {
-      return { matched: [], unmatched: jobSkills || [] };
-    }
-    const matched = jobSkills.filter((skill) => userSkills.includes(skill));
-    const unmatched = jobSkills.filter((skill) => !userSkills.includes(skill));
-    return { matched, unmatched };
-  };
-
   return (
     <div className={styles.suggestCard}>
       <div className={styles.suggestHeader}>
         <h2>Suggested Jobs</h2>
-        <p>Explore open positions related to your current job title and skills</p>
+        <p>Explore open positions related to your current job title</p>
       </div>
       {loading && <div className={styles.loader}>Loading...</div>}
       {error && (
@@ -176,7 +142,6 @@ const SuggestMix = () => {
             onClick={() => {
               setError("");
               setLoading(true);
-              fetchUserSkills();
               fetchSuggestedJobs();
             }}
           >
@@ -187,18 +152,13 @@ const SuggestMix = () => {
       {!loading && (
         <div className={styles.suggestList}>
           {suggestedJobs.length > 0 ? (
-            suggestedJobs.map((job) => {
-              const { matched, unmatched } = getMatchedSkills(job.skills);
-              return (
-                <Suggest
-                  key={job.id}
-                  job={job}
-                  matchedSkills={matched}
-                  unmatchedSkills={unmatched}
-                  onToggleFavorite={() => toggleFavorite(job.id)}
-                />
-              );
-            })
+            suggestedJobs.map((job) => (
+              <Suggest
+                key={job.id}
+                job={job}
+                onToggleFavorite={() => toggleFavorite(job.id)}
+              />
+            ))
           ) : (
             <p>No suggested jobs found.</p>
           )}

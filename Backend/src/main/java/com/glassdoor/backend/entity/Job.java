@@ -4,9 +4,6 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,22 +16,13 @@ public class Job {
     private String id;
 
     private String companyName;
-
-    private String location;
-    private String title;
-    private String description;
-    private String salaryRange;
-    private String examId;
-    private String prerequisite;
-
     private String imgUrl;
     private String jobProfile;
+
+    private String location;
+    private String salaryRange;
+    private String prerequisite;
     private float rating;
-    private String postedBy; // User ID (Recruiter)
-    private String companyId; // Company ID
-    private List<String> requiredSkills;
-    private LocalDateTime postedDate;
-    private boolean isActive;
 
 
 }

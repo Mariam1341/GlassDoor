@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1/job")
 @RequiredArgsConstructor
@@ -24,31 +22,9 @@ public class JobController {
         return ResponseEntity.ok(jobService.addJob(job));
     }
 
-
-
-    @PostMapping("/{jobId}/assign-exam")
-    public ResponseEntity<?> assignExamToJob(
-            @PathVariable String jobId,
-            @RequestParam String examId
-    ) {
-        jobService.assignExamToJob(jobId, examId);
-        return ResponseEntity.ok("Exam assigned to job successfully.");
-    }
-
-
-
     @GetMapping
     public ResponseEntity<ApiResponse<?>> getAllJobs(){
         return  ResponseEntity.ok(jobService.getAllJobs());
     }
 
-    @PostMapping("/post")
-    public ResponseEntity<Job> postJob(@RequestBody Job job) {
-        return ResponseEntity.ok(jobService.postJob(job));
-    }
-
-    @GetMapping("/suggested")
-    public ResponseEntity<List<Job>> getSuggestedJobs(@RequestParam List<String> skills) {
-        return ResponseEntity.ok(jobService.getSuggestedJobs(skills));
-    }
 }

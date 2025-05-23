@@ -1,21 +1,21 @@
-import { Navbar } from "../navbar"
-import { Footer } from "../footer"
-import styled from "styled-components"
-import axios from "axios"
+import { Navbar } from "../navbar";
+import { Footer } from "../footer";
+import styled from "styled-components";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { JobCard } from "./JobCard";
 import SearchRight from "../Search_right";
+
 const Cont = styled.div`
     background-color: white;
-        width: 85%;
-        border-radius: 5px;
-        margin: 20px auto;
+    width: 85%;
+    border-radius: 5px;
+    margin: 20px auto;
     &>div{
         display: flex;
         
         &>div:nth-of-type(1){
             height: 600px;
-            /* overflow-y: auto; */
             width: 35%;
             border:1px solid #d4d4d4;
             display: flex;
@@ -29,10 +29,9 @@ const Cont = styled.div`
             overflow-x: hidden;
             width: 65%;
         }
-
     }
-    
-`
+`;
+
 const InnerNav = styled.div`
     background-color: white;
     display: flex;
@@ -92,7 +91,6 @@ export function JobsList({ location }) {
     return (
         <>
             <Navbar />
-
             <Cont>
                 <InnerNav>
                     <select name="" id="">
@@ -118,29 +116,24 @@ export function JobsList({ location }) {
                         <option value="">Within 10 km</option>
                         <option value="">Within 20 km</option>
                         <option value="">Within 30 km</option>
-                        <option value="">With 50 km</option>
                         <option value="">Within 50 km</option>
                         <option value="">Within 100 km</option>
                     </select>
-
                 </InnerNav>
                 <div>
                     <div>
                         {
                             list.map((elem) => {
-
-                                return <JobCard {...elem} key={elem.id} handleClick={handleClick} />
+                                return <JobCard {...elem} key={elem.id} handleClick={handleClick} />;
                             })
                         }
-
                     </div>
                     <div>
-                        <SearchRight {...rightShow} btnStatus={"Easy Apply"} />
+                        <SearchRight {...rightShow} jobId={rightShow.id} btnStatus={"Easy Apply"} />
                     </div>
                 </div>
-
             </Cont>
             <Footer />
         </>
-    )
+    );
 }

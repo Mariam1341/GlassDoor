@@ -1,49 +1,35 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Steps from "./Steps";
-import { AuthContext } from "../../context/AuthContext";
-import styles from "./After_sign_in_2.module.css";
+// add two css files
+import styles from "./After_sign_in_2.module.css"
 
 const StepsMix = () => {
-  const { user } = useContext(AuthContext); // Use AuthContext to get user data
+  const [userData, setUserData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const history = useHistory();
 
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
-      console.log("StepsMix - Token:", token);
-      if (!token) {
-        setError("No token found. Please log in again.");
-        setLoading(false);
-        history.push("/SignIn");
-        return;
-      }
-
       try {
-        const response = await axios.get("http://localhost:8080/api/v1/user/me", {
+        const response = await axios.get("http://localhost:3000/api/v1/user/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("StepsMix - User data:", response.data);
-        // setUserData(response.data); // No need to set userData, use user from AuthContext
+        setUserData(response.data.data);
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch profile. Please log in again.");
         setLoading(false);
-        if (err.response?.status === 401) {
-          localStorage.removeItem("token");
-          history.push("/SignIn");
-        }
-        console.error("StepsMix - Error:", err.response?.status, err.response?.data);
+        console.error(err);
       }
     };
 
     fetchProfile();
-  }, [history]);
+  }, []);
 
   return (
     <div className={styles.profileCard}>
@@ -57,7 +43,7 @@ const StepsMix = () => {
               <Link to="/Profile" aria-label="View Profile">
                 <img
                   src={
-                    user?.profileImage ||
+                    userData?.profileImage ||
                     "https://www.glassdoor.com/app/static/img/icons/generic-avatar-50x50@2x.png?v=927f82gd"
                   }
                   alt="Profile"
@@ -65,9 +51,9 @@ const StepsMix = () => {
                 />
               </Link>
               <div className={styles.profileDetails}>
-                <h3>{user ? user.userName : "User Name"}</h3>
-                <Link to="/Profile" className={styles.profileButton}>
-                  Finish Your Profile
+                <h3>{userData ? userData.userName : "User Name"}</h3>
+                <Link to="/Profile">
+                  <button className={styles.profileButton}>Finish Your Profile</button>
                 </Link>
               </div>
             </div>
