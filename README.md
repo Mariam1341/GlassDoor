@@ -81,6 +81,26 @@ graph TD;
     F --> G[Candidate Takes Exam]
     G --> H[System Scores Answers]
     H --> I[HR Views Ranked Applicants]
+graph TD;
+    subgraph HR Flow
+        A[HR Registers] --> B[Creates Company]
+        B --> C[Posts Job]
+        C --> D[Generates Exam with AI]
+        D --> E[Assigns Exam to Job]
+        E --> F[HR Dashboard: View Applicants]
+    end
+
+    subgraph Candidate Flow
+        G[Candidate Registers] --> H[Browses Jobs]
+        H --> I[Applies to Job]
+        I --> J[Receives Exam Link via Email]
+        J --> K[Takes Exam]
+        K --> L[Auto-Scoring + Submission]
+        L --> M[Ranked with Other Candidates]
+    end
+
+    E --> I
+    L --> F
 
 
 
