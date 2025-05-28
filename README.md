@@ -1,90 +1,86 @@
-# 🔍 AI-Powered Glassdoor-like Job Hiring & Evaluation Platform
+# 🧠 AI-Driven Job Hiring & Evaluation Platform
 
-A full-stack smart hiring system where companies can post jobs, generate AI-based exams, invite candidates, and automatically evaluate their performance — all in one platform. Inspired by Glassdoor and built for modern recruitment.
+An intelligent full-stack web platform inspired by Glassdoor, empowering companies to automate hiring, test candidate skills, and make faster decisions using AI-generated exams and automatic grading.
 
-![Made With](https://img.shields.io/badge/Built%20With-Java%20%7C%20Spring%20Boot%20%7C%20React%20%7C%20Gemini%20AI-blueviolet)
-![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
-
----
-
-## 🚀 Features
-
-- 🔐 Role-based login (HR & Candidate)
-- 🏢 Company registration and job posting
-- 🤖 AI-powered exam generation using Gemini API
-- 📝 Online multiple-choice exam solving
-- ✅ Auto exam scoring & ranking
-- 📩 Email notifications to candidates
-- 📊 HR dashboard to manage jobs, interviews, and exams
-- 🔍 Candidate dashboard to apply and take exams
+![Java](https://img.shields.io/badge/Backend-Java%20%7C%20Spring%20Boot-blue)
+![React](https://img.shields.io/badge/Frontend-React.js-blueviolet)
+![MongoDB](https://img.shields.io/badge/Database-MongoDB-green)
+![AI](https://img.shields.io/badge/AI-Gemini%20API-red)
+![Status](https://img.shields.io/badge/Project-Active-lightgrey)
 
 ---
 
-## 📌 User Journey
+## 🔍 Overview
 
-1. HR registers and creates a company profile
-2. HR posts a job and adds requirements
-3. HR generates a custom exam using AI (Gemini)
-4. Candidates browse and apply for jobs
-5. Candidates receive email notifications with exam links
-6. Candidates take the exam online
-7. System auto-scores and ranks applicants
-8. HR views candidate scores and shortlists top performers
+This platform simplifies technical recruitment by letting companies:
 
----
+- Register and manage their company profile
+- Post jobs with requirements
+- Generate custom AI-powered exams per job
+- Assign exams to applicants automatically
+- Score candidate exams instantly
+- View candidate rankings by score
+- Notify candidates via email
 
-## 🛠️ Technologies Used
-
-| Layer        | Technology                         |
-|--------------|-------------------------------------|
-| Frontend     | React.js, React Router, CSS Modules |
-| Backend      | Spring Boot, Spring Security        |
-| Database     | MongoDB                             |
-| AI           | Gemini API (Google)                 |
-| Authentication | JWT Token-based Auth              |
-| Mail Service | Spring Mail with Gmail SMTP         |
-| Dev Tools    | Postman, VSCode, IntelliJ           |
+All while giving candidates a smooth, focused experience for applying and taking exams online.
 
 ---
 
-## 📦 API Overview
+## ✨ Key Features
 
-- `POST /auth/register` – User signup  
-- `POST /auth/login` – Authentication  
-- `POST /jobs/create` – HR creates a job  
-- `POST /ai/generate-exam` – Gemini exam generation  
-- `POST /exams/save` – Save and assign exam  
-- `POST /candidate/apply` – Apply to a job  
-- `GET /candidate/exam/{jobId}` – Fetch assigned exam  
-- `POST /candidate/exam/submit` – Submit answers and receive score  
+### 🏢 For HR:
+- Role-based login and dashboard
+- Company creation and management
+- Job creation and listing
+- AI exam generation with Gemini
+- Exam assignment and automatic grading
+- View all applicants and their scores
+- Candidate ranking per job
+- Email notifications on exam assignment
 
----
-
-## 📷 Screenshots
-
-> Add these if available (HR dashboard, exam UI, etc.)
-
----
-
-## 💡 Challenges Faced
-
-- Handling AI response formatting for JSON
-- Secure role-based access and route protection
-- Email service integration with Gmail SMTP
-- Auto-grading logic and edge cases
-- Clean exam and job linking via IDs
+### 👩‍💻 For Candidates:
+- Role-based login and dashboard
+- Apply to jobs
+- Receive exam links via email
+- Take exams online
+- Instant scoring upon submission
 
 ---
 
+## 🛠 Tech Stack
+
+| Layer     | Technology                          |
+|-----------|--------------------------------------|
+| Frontend  | React.js, React Router, CSS Modules  |
+| Backend   | Spring Boot, Spring Security         |
+| Database  | MongoDB                              |
+| AI        | Gemini API (Google PaLM)             |
+| Auth      | JWT (JSON Web Token)                 |
+| Email     | Spring Mail + Gmail SMTP             |
+| Dev Tools | Postman, IntelliJ, VSCode            |
+
+---
 ## 🔮 Future Enhancements
 
 - Deploy to Render/Heroku
-- Add CV upload for candidates
 - Support video-based interviews
 - Add analytics for HR (exam stats, candidate funnel)
 - AI-powered job description & email writing
 
 ---
 
-## 🧠 AI Prompt Example
+## 🧭 App Workflow
+
+```mermaid
+graph TD;
+    A[HR Registers] --> B[Creates Company]
+    B --> C[Posts Job]
+    C --> D[Generates Exam with AI]
+    D --> E[Candidates Apply]
+    E --> F[System Sends Email]
+    F --> G[Candidate Takes Exam]
+    G --> H[System Scores Answers]
+    H --> I[HR Views Ranked Applicants]
+
+
 
