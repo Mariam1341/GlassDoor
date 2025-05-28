@@ -73,15 +73,6 @@ All while giving candidates a smooth, focused experience for applying and taking
 
 ```mermaid
 graph TD;
-    A[HR Registers] --> B[Creates Company]
-    B --> C[Posts Job]
-    C --> D[Generates Exam with AI]
-    D --> E[Candidates Apply]
-    E --> F[System Sends Email]
-    F --> G[Candidate Takes Exam]
-    G --> H[System Scores Answers]
-    H --> I[HR Views Ranked Applicants]
-graph TD;
     subgraph HR Flow
         A[HR Registers] --> B[Creates Company]
         B --> C[Posts Job]
